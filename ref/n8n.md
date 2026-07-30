@@ -143,7 +143,24 @@ docker compose pull
 docker compose up -d --remove-orphans
 ```
 
-### Upgrading Native npm Instance
-```bash
-npm install n8n@latest -g
-```
+---
+
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| Dockerized n8n returns `ECONNREFUSED` connecting to local Ollama | `localhost` inside a Docker container targets the container itself rather than the host system. | Set Ollama Base URL to `http://host.docker.internal:11434`. On Linux hosts, add `extra_hosts: ["host.docker.internal:host-gateway"]` to `docker-compose.yml`. |
+| Webhook trigger node returns `404` or displays `http://localhost:5678/` callback URL | `WEBHOOK_URL` environment variable is unset or misconfigured. | Define `WEBHOOK_URL="https://n8n.yourdomain.com/"` (or external IP) in environment variables / `.env` file and restart n8n. |
+| n8n server disk space depleted by `.n8n` directory | Detailed execution history logs accumulate on disk across thousands of workflow runs. | Enable log pruning by adding `EXECUTIONS_DATA_PRUNE=true` and `EXECUTIONS_DATA_MAX_AGE=168` (7 days) to n8n environment variables. |
+| n8n workflow fails with `JavaScript heap out of memory` | Processing extremely large JSON payloads or multi-MB document data in Code/LLM nodes. | Increase Node.js memory limit by launching n8n with `NODE_OPTIONS="--max-old-space-size=4096"` (4 GB RAM allocation). |
+| OAuth credential authentication fails with `SSL/TLS Proxy Error` on self-hosted n8n | Reverse proxy (Nginx / Caddy / Traefik) fails to forward SSL headers to n8n. | Configure proxy to pass headers `X-Forwarded-For`, `X-Forwarded-Proto $scheme`, and `Host $host` to port 5678. |
+| n8n container fails to start with `database lock` error | Previous n8n container did not shut down cleanly, leaving SQLite file locked. | Ensure no competing n8n processes are active. For production workloads, migrate from SQLite to PostgreSQL backend. |
+| Community node installation fails inside Docker container | Permission denied writing to `/home/node/.n8n/nodes` inside non-root container. | Change volume ownership on host: `sudo chown -R 1000:1000 n8n_data` (or target container UID). |
+
+---
+
+## Related Documents
+- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
+- Next Step: [Oracle VirtualBox Setup Guide](ref/oracle-vm.md)
+
+

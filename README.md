@@ -5,7 +5,6 @@ synergy/
 ├── README.md               # Quick overview & repository index
 ├── .gitignore              # Git ignore configuration (excludes workflow/)
 ├── overview.md             # Complete step-by-step setup guide & lab checklist
-├── workflow/               # n8n workflow blueprints (.json) [git-ignored]
 ├── ref/                    # Core integration & setup reference guides
 │   ├── ollama.md           # Local & cloud Ollama LLM setup
 │   ├── openrouter.md       # OpenRouter model routing & API key config

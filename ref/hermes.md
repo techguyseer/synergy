@@ -182,6 +182,24 @@ git config --global user.email "hermes-bot@users.noreply.github.com"
 
 ---
 
+---
+
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| `hermes doctor` reports LLM endpoint connection error | Target LLM (Ollama or OpenRouter) is unreachable, offline, or misconfigured. | Verify local Ollama is running (`curl http://localhost:11434/api/tags`) or check `OPENROUTER_API_KEY`. Re-run `hermes setup` to reconfigure LLM settings. |
+| Hermes Agent appears **Offline** on Discord | Gateway background service was stopped or `HERMES_BOT_TOKEN` is invalid. | Check gateway status using `hermes gateway status`. Restart service via `hermes gateway start`. |
+| Git push fails with `Authentication failed for repository` | GitHub CLI (`gh`) is unauthenticated on the host environment. | Check status with `gh auth status`. Authenticate non-interactively using `echo "$GITHUB_TOKEN" | gh auth login --with-token`. |
+| Hermes ignores attached `.md` specification files in Discord | Bot lacks `Read Message History` or `Attach Files` permissions in Discord channel. | Check Discord Developer Portal > `hermes-bot` > Bot settings > Enable **Message Content Intent** and channel read/attachment permissions. |
+| Hermes returns `Access Denied: User ID not authorized` | Requesting Discord User ID is not listed in `config.yaml` admin whitelist. | Add your numerical Discord User ID to `~/.config/hermes/config.yaml` under `allowed_users` or re-run `hermes gateway setup`. |
+| Local scratch directories accumulating disk space on host | Post-execution scratch folder cleanup did not complete after push. | Execute `hermes clean` in terminal to prune temporary scratch workspace directories. |
+| Hermes process crashes or consumes 100% host CPU | Infinite prompt loop or unhandled exception during code generation task. | Run `hermes gateway restart` and check execution logs at `~/.config/hermes/logs/agent.log`. |
+
+---
+
 ## Related Documents
 - [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
 - Previous Step: [GitHub PAT & GitHub Pages Guide](ref/github.md)
+
+

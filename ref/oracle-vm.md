@@ -218,3 +218,25 @@ curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 ```
 
 For complete Hermes Agent configuration instructions, refer to **[Hermes Agent Setup Guide](hermes.md)**.
+
+---
+
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| Guest Additions build fails with `kernel headers not found` | Linux Mint guest kernel header packages or build tools missing. | Open terminal in Linux Mint and execute `sudo apt update && sudo apt install -y build-essential dkms linux-headers-$(uname -r)` before running Guest Additions installer. |
+| Shared clipboard (copy/paste) or drag-and-drop between host and VM fails | VirtualBox menu setting disabled or `VBoxClient` daemon inactive in guest. | Set **Devices > Shared Clipboard > Bidirectional** and **Devices > Drag and Drop > Bidirectional** in VM window menu, then run `VBoxClient-all` or reboot VM. |
+| VirtualBox throws `VT-x/AMD-V hardware acceleration is not available` | CPU hardware virtualization disabled in host BIOS/UEFI or Hyper-V conflict on Windows. | Reboot host, enter BIOS/UEFI setup, and enable **Intel VT-x** or **AMD-V**. On Windows hosts, disable Hyper-V feature (`Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V`). |
+| VM screen resolution locked to low 800x600 resolution | VMSVGA graphics controller driver unmounted or video memory underallocated. | Set **Settings > Display > Video Memory** to `128 MB`, set Graphics Controller to `VMSVGA`, enable 3D Acceleration, and re-run Guest Additions setup inside Linux. |
+| Linux Mint guest has no network/internet access | VM Network Adapter mode set to invalid adapter binding or disabled. | Open VM Settings > **Network** > Adapter 1, ensure **Enable Network Adapter** is checked, and set Attached to **NAT** or **Bridged Adapter**. |
+| `VBoxManage` command not recognized in host terminal (Windows) | VirtualBox installation path not added to system `PATH` environment variable. | Add `C:\Program Files\Oracle\VirtualBox` to your Windows System `PATH` variable, or call full path `& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"`. |
+| Linux Mint VM reports `Low Disk Space` / 30 GB VDI full | Virtual disk capacity exhausted by cached packages and build logs. | Expand VDI file on host via `VBoxManage modifymedium disk <path.vdi> --resize 51200` (50 GB), then use GParted inside Linux Mint to expand the main ext4 partition. |
+
+---
+
+## Related Documents
+- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
+- Next Step: [Hermes Agent Installation & Integration](ref/hermes.md)
+
+

@@ -132,6 +132,26 @@ OpenRouter can serve as the primary cloud LLM provider for Hermes Agent on hosts
 2. Configure Hermes model provider:
    ```bash
    hermes config set model_provider openrouter
-   hermes config set model meta-llama/llama-3.3-70b-instruct:free
-   ```
+---
+
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| OpenRouter returns `401 Unauthorized` or `402 Payment Required` | Invalid API key (`401`) or invoking a paid commercial model with `$0.00` credit balance (`402`). | Verify key at [openrouter.ai/keys](https://openrouter.ai/keys). Ensure model name includes `:free` suffix (e.g. `meta-llama/llama-3.3-70b-instruct:free`) if balance is `$0.00`. |
+| `429 Too Many Requests` rate limit on free tier models | Global per-minute free request caps reached during peak usage hours across users. | Set `model` to `openrouter/auto` or provide a comma-separated fallback candidate string (`meta-llama...:free,google/gemini...:free`). |
+| Custom n8n HTTP Request node rejected by OpenRouter | Missing mandatory site attribution headers required by OpenRouter API. | Add headers: `HTTP-Referer: https://github.com/techguyseer/synergy` and `X-Title: Synergy Marketing Ecosystem`. |
+| OpenRouter API call times out after 60+ seconds | Upstream model provider latency or server overload on requested free model. | Define explicit provider fallbacks or switch primary model to a faster endpoint like `google/gemini-2.0-flash-exp:free`. |
+| LLM returns truncated / incomplete JSON strategy payload | Model max output token parameter limit reached during response generation. | Increase `max_tokens` parameter (e.g. 4096) and enforce JSON mode formatting instructions in the system prompt. |
+| `openrouter/auto` selects unexpected or low-quality model | System prompt lacks clear complexity indicators for router model matching. | Pass explicit candidate model array `["meta-llama/llama-3.3-70b-instruct:free", "google/gemini-2.0-flash-exp:free"]` instead of auto. |
+| Account balance drops unexpectedly on paid key | Uncapped API key used in recursive loop or auto-retrying n8n node. | Navigate to [openrouter.ai/keys](https://openrouter.ai/keys) and set a strict spending cap limit on your API key. |
+
+---
+
+## Related Documents
+- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
+- [Ollama Setup Guide](file:///Users/seerneil/Documents/codespaces/ailab/synergy/ref/ollama.md)
+- Next Step: [Google Account & Cloud Console Setup](file:///Users/seerneil/Documents/codespaces/ailab/synergy/ref/google-account.md)
+
+
 

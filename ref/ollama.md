@@ -189,7 +189,23 @@ curl https://ollama.com/api/chat \
 
 ---
 
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| `ollama run` returns `connection refused` or `could not connect` | Ollama background service daemon is not active. | Open `Ollama.app` (macOS), check Windows system tray, or run `sudo systemctl start ollama` (Linux). |
+| Extremely slow generation speed / host system lag | Selected model size (e.g. 70B) exceeds GPU VRAM, swapping layers to system RAM/disk. | Switch to smaller 7B/8B models: `ollama run qwen2.5:7b` or `ollama run llama3.2:3b`. |
+| n8n or remote machine cannot reach Ollama on port 11434 | Ollama host service is bound exclusively to `127.0.0.1`. | Set environment variable `OLLAMA_HOST="0.0.0.0:11434"` on host machine and restart Ollama service. |
+| `CUDA out of memory` / GPU fallback during execution | Model context window size or parallel request count exceeds VRAM capacity. | Reduce context window setting (`num_ctx 4096`) or restrict parallel instances via `OLLAMA_NUM_PARALLEL=1`. |
+| `ollama pull` fails with `digest mismatch` / network timeout | Unstable network connection during multi-GB model download. | Re-run `ollama pull <model-name>`. Ollama automatically resumes incomplete chunk downloads. |
+| Ollama Cloud returns `401 Unauthorized` | Missing or expired `OLLAMA_API_KEY` header on HTTP requests. | Generate a new key at [ollama.com/settings/keys](https://ollama.com/settings/keys) and pass `Authorization: Bearer $OLLAMA_API_KEY`. |
+| Linux `systemctl` fails with `ollama.service: Failed with result 'exit-code'` | Systemd unit file lacks proper directory permissions or GPU driver path. | Check `journalctl -u ollama -e` to inspect driver issues, and ensure `/usr/local/bin/ollama` has execution rights. |
+
+---
+
 ## Related Documents
 - [Overview Page](overview.md)
 - [OpenRouter Setup & Model Routing Guide](openrouter.md)
 - Next Step: [Google Account & Cloud Console Setup](google-account.md)
+
+

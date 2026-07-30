@@ -101,7 +101,25 @@ git clone https://<your-username>:<YOUR_PAT_TOKEN>@github.com/<your-username>/<r
 
 ---
 
+---
+
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| `git push` or `gh auth login` returns `403 Forbidden` / `Bad Credentials` | PAT lacks the mandatory `repo` scope or the token has expired. | Go to GitHub **Settings > Developer settings > Personal access tokens (classic)**, verify expiration status, and generate a new token with `repo` scope checked. |
+| Published GitHub Pages URL displays `404 Not Found` | Repository lacks an `index.html` file inside the `/docs` folder on `main` branch, or deployment is in progress. | Create `docs/index.html` on `main` branch. Go to **Settings > Pages**, verify source is set to `Deploy from a branch` -> `main` -> `/docs`, and check **Actions** build progress. |
+| Git commit fails with `fatal: unable to auto-detect email address` | Git user identity (`user.name` and `user.email`) has not been configured on host/VM. | Run `git config --global user.name "Hermes Agent Bot"` and `git config --global user.email "hermes-bot@users.noreply.github.com"` in terminal. |
+| `gh auth login` hangs waiting for browser or token input in automation scripts | Script invokes interactive mode instead of non-interactive token pipe. | Pipe the PAT environment variable directly into the CLI: `echo "$GITHUB_TOKEN" | gh auth login --with-token`. |
+| Git push rejected with `[rejected - non-fast-forward]` error | Remote repository branch contains remote commits not present in local working copy. | Run `git pull --rebase origin main` to integrate remote changes before executing `git push origin main`. |
+| `ssh: connect to host github.com port 22: Connection refused` | Firewall or network proxy blocks outgoing SSH connections on port 22. | Switch git remote URL from SSH to HTTPS: `git remote set-url origin https://github.com/<username>/<repo>.git` or use `gh auth login` with HTTPS protocol. |
+| GitHub Pages build fails with `Jekyll build error` | Unescaped liquid tags or syntax errors in static Markdown/HTML files inside `/docs`. | Add `.nojekyll` file to the root of your repository or `/docs` folder to bypass default Jekyll processing. |
+
+---
+
 ## Related Documents
 - [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
 - Previous Step: [Discord Developer & Bot Setup](ref/discord.md)
 - Next Step: [Hermes Agent Installation & Integration](ref/hermes.md)
+
+

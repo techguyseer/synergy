@@ -157,7 +157,25 @@ In the Development Agent and Analytics Agent workflows, `n8n-bot` triggers `herm
 
 ---
 
+---
+
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| `hermes-bot` ignores `@mention` tags in Discord server channels | **Message Content Intent** is disabled in Discord Developer Portal or channel read permissions are missing. | Go to [Discord Developer Portal](https://discord.com/developers/applications) > `hermes-bot` > **Bot**, enable **Message Content Intent**, and grant `View Channels` and `Read Message History` permissions in channel settings. |
+| `hermes-bot` does not trigger when `n8n-bot` posts a message | Discord suppresses bot-to-bot notifications when using display names instead of raw user ID tags. | Format the mention using raw Discord User ID syntax `<@HERMES_BOT_USER_ID>` (e.g., `<@123456789012345678>`) inside the n8n message payload. |
+| `n8n-bot` fails with `403 Forbidden` / `Missing Permissions` when posting | Bot role lacks `Send Messages`, `Embed Links`, or `Attach Files` permissions in the target channel. | Re-generate the bot OAuth2 invite URL with necessary scopes, or edit Channel Settings > Permissions > Add Bot Role > Allow `Send Messages` and `Attach Files`. |
+| `hermes-bot` appears **Offline** in Discord server member list | Hermes Agent gateway daemon is not running on the host machine. | Open terminal on your host or VM, run `hermes gateway status`, and start the gateway service using `hermes gateway start`. |
+| `n8n-bot` fails to attach specification `.md` files to Discord channel | Bot lacks `Attach Files` scope or file exceeds Discord's free tier attachment size limit (25 MB). | Verify `Attach Files` permission is enabled in OAuth2 settings and ensure attached markdown spec files are under 25 MB. |
+| Discord returns `429 Too Many Requests` (Rate Limited) | n8n workflow sends messages in a rapid loop without delay parameters. | Add a **Wait** node (1–2 seconds) between iterative message dispatch loops in n8n to comply with Discord API rate limits. |
+| Cannot locate `hermes-bot` User ID (Application ID copied by mistake) | Discord Developer Mode is turned off, or Application Client ID was copied instead of Bot User ID. | Enable **Developer Mode** in Discord Settings > User Settings > Advanced. Right-click `hermes-bot` in the server member list and click **Copy User ID**. |
+
+---
+
 ## Related Documents
 - [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
 - Previous Step: [Google Account & Cloud Console Setup](ref/google-account.md)
 - Next Step: [GitHub PAT & GitHub Pages Guide](ref/github.md)
+
+

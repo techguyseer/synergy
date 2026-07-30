@@ -100,3 +100,25 @@ curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 ```
 
 For complete Hermes Agent configuration details, see **[Hermes Agent Setup Guide](hermes.md)**.
+
+---
+
+## Common Troubleshooting Guide
+
+| Symptom / Error Message | Probable Cause | Recommended Solution |
+| :--- | :--- | :--- |
+| UTM displays a black screen or freezes during Linux guest boot | Display card driver mismatch with macOS host GPU or Emulation mode selected. | In UTM VM settings > **Display**, set emulation to `virtio-gpu-pci` or `virtio-ramfb`. Under **System**, ensure **Virtualize** is selected. |
+| Shared clipboard or dynamic display resolution scaling fails | SPICE guest agent tools (`spice-vdagent`) missing or service disabled in Linux VM. | Open Linux terminal, run `sudo apt install -y spice-vdagent qemu-guest-agent`, enable daemon (`sudo systemctl enable --now spice-vdagent`), and reboot. |
+| Shared directory (macOS folder) does not mount inside Linux guest | SPICE WebDAV folder sharing daemon (`spice-webdavd`) not installed inside guest. | Run `sudo apt install -y spice-webdavd` in Linux VM, and configure UTM shared directory path under VM settings > **Sharing**. |
+| High CPU usage and fan noise on macOS host while VM is idle | Excessive CPU core allocation or CPU power management features disabled. | Reduce VM allocation to 2–4 CPU cores in UTM settings, enable main memory ballooning, and set CPU model to **Default**. |
+| Linux ISO boot error `Exec format error` / kernel panics on launch | CPU architecture mismatch (e.g. running x86_64 ISO on Apple Silicon Mac without emulation). | Download **ARM64** Linux ISOs (Ubuntu ARM64 / Debian ARM64) for M1/M2/M3/M4 Macs. Use x86_64 ISOs exclusively on Intel Macs. |
+| Linux guest VM cannot connect to local host Ollama instance | UTM Virtual Network isolates container/VM network traffic from host `localhost`. | Find host IP on macOS (`ifconfig en0`), or set network mode to **Bridged (Advanced)** in UTM settings to access host services directly. |
+| Linux VM reports `No space left on device` inside UTM | Initial virtual disk allocation size (30 GB) depleted by packages and logs. | Open UTM VM settings > **Drives**, expand virtual disk size (e.g. 50 GB), then use `gparted` or `resize2fs` inside Linux to expand partition. |
+
+---
+
+## Related Documents
+- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
+- Next Step: [Hermes Agent Setup Guide](ref/hermes.md)
+
+
