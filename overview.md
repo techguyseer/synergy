@@ -121,7 +121,7 @@ Complete the following checklist to ensure all accounts, credentials, and parame
 - [ ] Enable Gmail API, Google Drive API, and Google Docs API.
 - [ ] Configure OAuth Consent Screen (add your Google email to Test Users).
 - [ ] Create OAuth 2.0 Client ID and Client Secret (Web Application type).
-- [ ] Add n8n Authorized Redirect URI (`https://oauth.n8n.cloud/rest/oauth2-credential/callback` or self-hosted URI).
+- [ ] Add n8n Authorized Redirect URI (`https://synergylabs.app.n8n.cloud/rest/oauth2-credential/callback` or self-hosted URI).
 - [ ] Create `gmailOAuth2` credential in n8n (`Gmail account`).
 - [ ] Create `googleDocsOAuth2Api` credential in n8n (`Google Docs account`).
 - [ ] Create `googleDriveOAuth2Api` credential in n8n (`Google Drive account`).

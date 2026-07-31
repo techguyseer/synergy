@@ -73,7 +73,7 @@ Before creating OAuth credentials, Google requires an OAuth Consent Screen setup
 5. Scroll down to **Authorized redirect URIs**:
    - Click **+ Add URI**.
    - Enter your exact n8n OAuth callback URL:
-     - For **n8n Cloud**: `https://oauth.n8n.cloud/rest/oauth2-credential/callback`
+     - For **n8n Cloud**: `https://synergylabs.app.n8n.cloud/rest/oauth2-credential/callback`
      - For **Self-Hosted n8n**: `https://<YOUR_N8N_DOMAIN>/rest/oauth2-credential/callback`
 6. Click **Create**.
 7. A modal will display your **Client ID** and **Client Secret**.
@@ -125,7 +125,7 @@ In the Marketing Document Agent workflow, generated marketing plans are stored i
 | :--- | :--- | :--- |
 | n8n OAuth credentials throw `invalid_grant` / expire every 7 days | OAuth consent screen is set to **External** user type and **Testing** status. | Re-authenticate the credential in n8n. To prevent weekly expiration, add your email under **Test Users** on the consent screen or switch to **Internal** (Workspace accounts). |
 | n8n returns `403 Access Not Configured` when running Gmail, Docs, or Drive nodes | Target API library service has not been enabled in Google Cloud Console. | Go to [Google Cloud Console](https://console.cloud.google.com/) > **APIs & Services > Library**, search for Gmail API, Google Docs API, or Google Drive API, and click **Enable**. |
-| OAuth authorization fails with `redirect_uri_mismatch` | Authorized Redirect URI in Google Cloud Console does not match n8n's callback URL. | Go to **APIs & Services > Credentials > OAuth 2.0 Client ID**, and add `https://oauth.n8n.cloud/rest/oauth2-credential/callback` (n8n Cloud) or your exact self-hosted callback domain. |
+| OAuth authorization fails with `redirect_uri_mismatch` | Authorized Redirect URI in Google Cloud Console does not match n8n's callback URL. | Go to **APIs & Services > Credentials > OAuth 2.0 Client ID**, and add `https://synergylabs.app.n8n.cloud/rest/oauth2-credential/callback` (n8n Cloud) or your exact self-hosted callback domain. |
 | Marketing Document Agent fails to create doc inside target Google Drive folder | Folder ID input field is invalid or folder permission restricts creation. | Open the folder in Google Drive, copy the alphanumerical ID string from the URL (`folders/<FOLDER_ID>`), and ensure your authenticated Google account owns the folder. |
 | Google Docs node returns `403 Insufficient Permission` on document write | OAuth consent screen scope selection omits Google Docs or Drive full write scopes. | Edit OAuth consent screen scopes, add `https://www.googleapis.com/auth/documents` and `https://www.googleapis.com/auth/drive`, then re-authenticate the credential in n8n. |
 | Shared Google Doc URL returns `Access Denied` / `Request Access` prompt | Google Drive node failed to change file permissions to public read access. | Ensure the Marketing Document Agent workflow includes a Google Drive node configured to set file permissions to `anyone as reader` after document creation. |
