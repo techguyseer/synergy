@@ -4,6 +4,17 @@ This guide details how to self-host and run an independent **n8n** instance usin
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **n8n Workflow Automation Platform** |
+| **Tool Classification** | Node-based workflow automation engine and multi-system integration orchestrator. |
+| **License Type** | Sustainable Use License (Fair-code / free for self-hosted internal/personal use, commercial license required for hosting as a service) |
+| **Purpose in Ecosystem** | Serves as the central workflow orchestration backbone, interconnecting user chat triggers, Ollama AI model nodes, Google Workspace APIs (Docs, Drive, Gmail), and dispatching task payloads to Hermes Agent via Discord webhooks (`n8n-bot`). |
+
+---
+
 ## Part 1: Overview & System Requirements
 
 n8n is an open-source workflow automation platform. Self-hosting n8n provides full control over data privacy, execution timeouts, custom credentials, and local network connectivity to LLM servers like Ollama.

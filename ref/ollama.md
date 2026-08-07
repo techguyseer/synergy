@@ -4,6 +4,17 @@ This guide covers setting up **Ollama** locally on your desktop environment and 
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **Ollama & Ollama Cloud** |
+| **Tool Classification** | Open-source LLM inference framework, local model server, and cloud model API service. |
+| **License Type** | Open Source (MIT License for Ollama server; commercial/paid tier for Ollama Cloud API) |
+| **Purpose in Ecosystem** | Provides local or cloud-hosted open-source AI intelligence (e.g., Qwen, Llama, Gemma) powering the reasoning capability for both n8n workflow nodes and Hermes Agent execution sessions. |
+
+---
+
 ## Part 1: Downloading & Running Ollama Locally
 
 Ollama allows you to run open-source large language models (LLMs) locally on your own machine.

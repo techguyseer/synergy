@@ -4,6 +4,17 @@ This guide details how to install and configure **UTM** — a free and open-sour
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **UTM Virtual Machines** |
+| **Tool Classification** | macOS-native virtual machine host built on Apple Hypervisor.framework and QEMU. |
+| **License Type** | Open Source (Apache License 2.0) |
+| **Purpose in Ecosystem** | Provides an optimized, hardware-accelerated ARM64/x86 VM sandbox environment on macOS (Apple Silicon and Intel) for isolated deployment of Hermes Agent and related local services. |
+
+---
+
 ## Part 1: Overview & Why UTM for macOS
 
 UTM is a lightweight, high-performance virtual machine host built natively for macOS using Apple's Hypervisor.framework and QEMU.

@@ -4,6 +4,17 @@ This guide details how to generate a **GitHub Personal Access Token (PAT Classic
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **GitHub & GitHub Pages** |
+| **Tool Classification** | Web-based developer platform for version control (Git), source code hosting, and static web page hosting. |
+| **License Type** | Proprietary Cloud Platform / Freemium (GitHub CLI `gh` is Open Source under MIT License) |
+| **Purpose in Ecosystem** | Acts as the primary source code repository manager, handling Personal Access Token (PAT) authentication for automated agents, receiving code commits from Hermes Agent, and serving live websites via GitHub Pages (`/docs`). |
+
+---
+
 ## Overview
 
 Your automated agents require authentication to interact with GitHub repositories—such as committing updated code, cloning repos, or managing documentation. GitHub Pages allows agents to publish static web pages directly from repository branches.

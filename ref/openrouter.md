@@ -4,6 +4,17 @@ This guide details how to create an **OpenRouter** account, generate **API Keys*
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **OpenRouter** |
+| **Tool Classification** | Unified API gateway and aggregator for multi-provider AI language models. |
+| **License Type** | Commercial / Pay-as-you-go API Gateway Service (with free-tier model options) |
+| **Purpose in Ecosystem** | Serves as a flexible cloud LLM provider fallback for Hermes Agent and n8n workflows, granting access to state-of-the-art open-source and commercial models without requiring local GPU hardware. |
+
+---
+
 ## Part 1: OpenRouter Overview & Account Creation
 
 OpenRouter is a unified AI model gateway that provides a standardized API for accessing open-source and commercial LLMs (from Meta, Google, Anthropic, OpenAI, Qwen, DeepSeek, and Mistral).

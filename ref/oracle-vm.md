@@ -4,6 +4,17 @@ This guide details how to create an isolated virtual machine environment using *
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **Oracle VM VirtualBox & Linux Mint** |
+| **Tool Classification** | Open-source virtualization hypervisor software paired with a Linux Mint desktop operating system. |
+| **License Type** | Open Source / Free Software (GNU General Public License v3 (GPLv3) for VirtualBox base; GPL for Linux Mint OS) |
+| **Purpose in Ecosystem** | Provides a secure, isolated local virtual machine sandbox on Windows and Linux host machines for hosting Hermes Agent, running terminal tools, and hosting background gateway daemons safely. |
+
+---
+
 ## Part 1: Overview & Prerequisites
 
 Using a dedicated Virtual Machine (VM) creates a secure sandbox environment for autonomous AI agents like Hermes Agent. This protects your host operating system from untrusted file modifications and provides an environment identical to cloud VPS deployments.

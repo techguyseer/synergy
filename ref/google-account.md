@@ -4,6 +4,17 @@ This guide details how to configure a Google Cloud Console project for the **Syn
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **Google Workspace Services & Google Cloud Console** |
+| **Tool Classification** | Cloud computing infrastructure platform and suite of cloud-based productivity tools (Gmail, Google Drive, Google Docs). |
+| **License Type** | Commercial / Proprietary (with free-tier quota limits) |
+| **Purpose in Ecosystem** | Provides OAuth 2.0 API access enabling n8n automated workflow nodes to construct and format marketing campaign documents in Google Docs, organize deliverables in Google Drive folders, and dispatch delivery summary emails via Gmail. |
+
+---
+
 ## Overview
 
 n8n Google nodes (Gmail, Google Drive, Google Docs) use OAuth 2.0 authentication to securely perform operations on behalf of your Google account. This requires establishing an application entry in Google Cloud Console.

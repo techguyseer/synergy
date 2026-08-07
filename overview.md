@@ -27,6 +27,20 @@ This guide provides step-by-step instructions for laboratory exercises and hands
 | [Oracle VirtualBox & Linux Mint Setup Guide](ref/oracle-vm.md) | Creating an isolated VirtualBox VM running Linux Mint for Hermes Agent | Downloading VirtualBox & Linux Mint ISO, VM creation, hardware allocation, installing Guest Additions (desktop extensions), bidirectional clipboard, preparing Hermes execution environment. |
 | [UTM Virtualization Setup Guide for macOS](ref/utm.md) | Setting up UTM for hosting Linux Mint / Ubuntu guest VMs on macOS | Open-source UTM virtualization, Apple Silicon (ARM64) & Intel support, VM creation, SPICE Guest Agent installation, shared directory configuration, Hermes deployment. |
 
+### Ecosystem Tool Classification, License Types & Purpose Matrix
+
+| Tool Name | Tool Overview & Classification | License Type | Purpose in Synergy Ecosystem | Reference Guide |
+| :--- | :--- | :--- | :--- | :--- |
+| **Discord** | Instant messaging, Voice-over-IP (VoIP), and digital collaboration platform. | Proprietary / Freemium | Central communication and event gateway hosting `n8n-bot` (notifications) and `hermes-bot` (interactive AI agent). | [Discord Setup](ref/discord.md) |
+| **GitHub & GitHub Pages** | Web-based developer platform for Git version control and static web publishing. | Proprietary Cloud Platform / Freemium (CLI is MIT) | Source code repository host, PAT authentication manager, and live web host (`/docs`) via GitHub Pages. | [GitHub Setup](ref/github.md) |
+| **Google Workspace & Cloud Console** | Cloud computing platform and productivity software suite (Gmail, Drive, Docs). | Commercial / Proprietary (Free-tier quota limits) | OAuth 2.0 API provider enabling n8n to generate Google Docs, manage Google Drive folders, and send summary emails via Gmail. | [Google Setup](ref/google-account.md) |
+| **Hermes Agent** | Open-source autonomous AI agent and command execution engine by Nous Research. | Open Source (MIT License) | Autonomous developer and execution engine running scripts, managing repositories via `gh` CLI, and handling Discord prompts. | [Hermes Setup](ref/hermes.md) |
+| **n8n** | Node-based workflow automation platform and integration orchestrator. | Sustainable Use License (Fair-code / free for internal use) | Central workflow orchestration engine connecting triggers, AI model nodes, Google APIs, and Hermes Agent tasks. | [n8n Setup](ref/n8n.md) |
+| **Ollama & Ollama Cloud** | Open-source LLM inference framework, local model server, and cloud model API service. | Open Source (MIT License for server; Commercial Cloud API) | Local or cloud-hosted open-source LLM provider supplying AI reasoning to n8n nodes and Hermes Agent. | [Ollama Setup](ref/ollama.md) |
+| **OpenRouter** | Unified API gateway and aggregator for multi-provider AI language models. | Commercial / Pay-as-you-go API Gateway (Free-tier models) | Cloud LLM fallback provider offering access to state-of-the-art open-source and commercial models. | [OpenRouter Setup](ref/openrouter.md) |
+| **Oracle VirtualBox & Linux Mint** | Open-source virtualization hypervisor paired with a Linux Mint desktop OS. | Open Source / Free Software (GNU GPLv3) | Secure, isolated local virtual machine sandbox on Windows and Linux PCs for hosting Hermes Agent. | [Oracle VM Setup](ref/oracle-vm.md) |
+| **UTM Virtual Machines** | macOS-native virtual machine host built on Apple Hypervisor.framework and QEMU. | Open Source (Apache License 2.0) | Hardware-accelerated ARM64/x86 VM sandbox environment on macOS for hosting Hermes Agent. | [UTM Setup](ref/utm.md) |
+
 ---
 
 ## Synergy Marketing Ecosystem — Workflow Architecture & Laboratory Overview

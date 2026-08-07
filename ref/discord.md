@@ -4,6 +4,17 @@ This document outlines the step-by-step process for creating **two separate Disc
 
 ---
 
+## Tool Overview & Ecosystem Purpose
+
+| Property | Details |
+| :--- | :--- |
+| **Tool Name** | **Discord** |
+| **Tool Classification** | Instant messaging, Voice-over-IP (VoIP), and digital team collaboration platform. |
+| **License Type** | Proprietary / Freemium |
+| **Purpose in Ecosystem** | Serves as the central communication and event gateway for the Synergy Marketing Ecosystem, hosting **`n8n-bot`** (for automated channel alerts & specification dispatches) and **`hermes-bot`** (for interactive AI execution & prompt management). |
+
+---
+
 ## Overview & Dual-Bot Architecture
 
 To maintain security, clear event boundaries, and isolated token management, this ecosystem utilizes two distinct Discord bots:
