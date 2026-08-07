@@ -134,8 +134,9 @@ In the Marketing Document Agent workflow, generated marketing plans are stored i
 ---
 
 ## Related Documents
-- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
-- Previous Step: [Ollama Setup Guide](ref/ollama.md)
-- Next Step: [Discord Developer & Bot Setup](ref/discord.md)
+- [Overview Page](../overview.md)
+- Previous Step: [Ollama Setup Guide](ollama.md)
+- Next Step: [Discord Developer & Bot Setup](discord.md)
+
 
 

@@ -118,8 +118,9 @@ git clone https://<your-username>:<YOUR_PAT_TOKEN>@github.com/<your-username>/<r
 ---
 
 ## Related Documents
-- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
-- Previous Step: [Discord Developer & Bot Setup](ref/discord.md)
-- Next Step: [Hermes Agent Installation & Integration](ref/hermes.md)
+- [Overview Page](../overview.md)
+- Previous Step: [Discord Developer & Bot Setup](discord.md)
+- Next Step: [Hermes Agent Installation & Integration](hermes.md)
+
 
 

@@ -174,8 +174,9 @@ In the Development Agent and Analytics Agent workflows, `n8n-bot` triggers `herm
 ---
 
 ## Related Documents
-- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
-- Previous Step: [Google Account & Cloud Console Setup](ref/google-account.md)
-- Next Step: [GitHub PAT & GitHub Pages Guide](ref/github.md)
+- [Overview Page](../overview.md)
+- Previous Step: [Google Account & Cloud Console Setup](google-account.md)
+- Next Step: [GitHub PAT & GitHub Pages Guide](github.md)
+
 
 

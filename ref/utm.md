@@ -118,7 +118,8 @@ For complete Hermes Agent configuration details, see **[Hermes Agent Setup Guide
 ---
 
 ## Related Documents
-- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
-- Next Step: [Hermes Agent Setup Guide](ref/hermes.md)
+- [Overview Page](../overview.md)
+- Next Step: [Hermes Agent Setup Guide](hermes.md)
+
 
 

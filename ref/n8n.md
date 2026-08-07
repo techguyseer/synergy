@@ -160,7 +160,8 @@ docker compose up -d --remove-orphans
 ---
 
 ## Related Documents
-- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
-- Next Step: [Oracle VirtualBox Setup Guide](ref/oracle-vm.md)
+- [Overview Page](../overview.md)
+- Next Step: [Oracle VirtualBox Setup Guide](oracle-vm.md)
+
 
 

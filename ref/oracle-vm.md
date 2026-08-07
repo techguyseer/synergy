@@ -236,7 +236,8 @@ For complete Hermes Agent configuration instructions, refer to **[Hermes Agent S
 ---
 
 ## Related Documents
-- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
-- Next Step: [Hermes Agent Installation & Integration](ref/hermes.md)
+- [Overview Page](../overview.md)
+- Next Step: [Hermes Agent Installation & Integration](hermes.md)
+
 
 

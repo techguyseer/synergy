@@ -111,7 +111,7 @@ Complete the following checklist to ensure all accounts, credentials, and parame
 
 ### 1. Ollama & OpenRouter Setup
 - [ ] Install Ollama locally (macOS/Windows/Linux) or set up Ollama Cloud account ([ref/ollama.md](ref/ollama.md)).
-- [ ] Pull target models (`ollama run llama3`, `ollama run qwen2.5`, etc.).
+- [ ] Pull/configure target models (using `gemma4:31b-cloud` as the LLM model of choice, or local models via `ollama run gemma4:31b`).
 - [ ] Configure `OLLAMA_HOST="0.0.0.0:11434"` for local network listening.
 - [ ] Create `ollamaApi` credential in n8n (`Ollama account`) pointing to your host URL (e.g., `http://host.docker.internal:11434`).
 - [ ] Create an OpenRouter account ([ref/openrouter.md](ref/openrouter.md)) and generate an API Key (`OPENROUTER_API_KEY`) for cloud LLM fallback/auto-routing.

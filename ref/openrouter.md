@@ -149,9 +149,10 @@ OpenRouter can serve as the primary cloud LLM provider for Hermes Agent on hosts
 ---
 
 ## Related Documents
-- [Overview Page](file:///Users/seerneil/Documents/codespaces/ailab/synergy/overview.md)
-- [Ollama Setup Guide](file:///Users/seerneil/Documents/codespaces/ailab/synergy/ref/ollama.md)
-- Next Step: [Google Account & Cloud Console Setup](file:///Users/seerneil/Documents/codespaces/ailab/synergy/ref/google-account.md)
+- [Overview Page](../overview.md)
+- [Ollama Setup Guide](ollama.md)
+- Next Step: [Google Account & Cloud Console Setup](google-account.md)
+
 
 
 

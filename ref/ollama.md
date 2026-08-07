@@ -121,7 +121,7 @@ In your n8n workflow nodes (such as the Ollama Chat Model node `@n8n/n8n-nodes-l
 1. Go to **n8n > Credentials > Add Credential** and search for `Ollama API`.
 2. Name the credential `Ollama account` (or your preferred name).
 3. Set the **Host** parameter according to your deployment table above (e.g., `http://host.docker.internal:11434`).
-4. Select your target model (e.g., `gemma4:31b`, `llama3`, or `qwen2.5`) inside the Ollama Chat Model node settings.
+4. Select your target model (specifically `gemma4:31b-cloud` as the ecosystem model of choice, or `llama3` / `qwen2.5`) inside the Ollama Chat Model node settings.
 
 ---
 
@@ -170,7 +170,7 @@ curl https://ollama.com/api/chat \
   -H "Authorization: Bearer $OLLAMA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "qwen2.5:cloud",
+    "model": "gemma4:31b-cloud",
     "messages": [{"role": "user", "content": "Hello world"}]
   }'
 ```
@@ -204,8 +204,9 @@ curl https://ollama.com/api/chat \
 ---
 
 ## Related Documents
-- [Overview Page](overview.md)
+- [Overview Page](../overview.md)
 - [OpenRouter Setup & Model Routing Guide](openrouter.md)
 - Next Step: [Google Account & Cloud Console Setup](google-account.md)
+
 
 
