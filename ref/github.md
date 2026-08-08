@@ -1,6 +1,18 @@
 # GitHub Personal Access Token & GitHub Pages Setup Guide
 
+> **Setup Navigation**: [Step 3: Discord Dual-Bot Setup](discord.md) | **Step 4: GitHub PAT & GitHub Pages Setup** | [Step 5: Hermes Agent Setup](hermes.md)
+
 This guide details how to generate a **GitHub Personal Access Token (PAT Classic)** with appropriate scope permissions and how to set up **GitHub Pages** for the **Synergy Marketing Ecosystem** — hosting automated web outputs across your repositories.
+
+> 💡 **Non-Technical Note:**  
+
+> **What is a GitHub PAT & GitHub Pages?** A **Personal Access Token (PAT)** is a pass key that lets automated agent CLI tools commit code to your account. **GitHub Pages** is a free hosting feature that turns any website files stored inside your repository's `/docs` folder into a live, public website URL. Need more definitions? See **[Synergy Glossary](glossary.md)**.
+
+---
+
+## Visual PAT Setup Guide
+
+![GitHub Personal Access Token Classic Setup](/Users/seerneil/.gemini/antigravity-ide/brain/b7272dad-971c-4782-acc8-c5486b78e963/github_pat_setup_guide_1786177306358.png)
 
 ---
 
@@ -22,6 +34,7 @@ Your automated agents require authentication to interact with GitHub repositorie
 ---
 
 ## Part 1: Generating a Personal Access Token (PAT Classic)
+
 
 GitHub PATs act as secure authentication tokens for scripts, the GitHub CLI (`gh`), n8n GitHub nodes, and automated workflow agents.
 

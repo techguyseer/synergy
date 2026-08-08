@@ -1,8 +1,5 @@
-# Synergy Marketing Ecosystem — Setup Guide
-
-Welcome to the documentation suite for setting up the **Synergy Marketing Ecosystem** workspace. This system connects n8n workflows, Hermes Agent, Ollama, Discord, Google Workspace Services (Gmail, Drive, Docs), and GitHub / GitHub Pages into an integrated AI agent ecosystem.
-
-This guide provides step-by-step instructions for laboratory exercises and hands-on setup, enabling you to create your own accounts, generate API credentials, set up permissions, create custom repositories, and configure local and cloud environments safely.
+> 💡 **Non-Technical Note & Beginner Glossary**  
+> New to terms like *OAuth 2.0*, *API Keys*, *Webhooks*, *Intents*, or *Virtual Machines*? Check out the **[Synergy Jargon Buster & Beginner Glossary](ref/glossary.md)** for simple, everyday analogies explaining all ecosystem concepts!
 
 ---
 
@@ -18,6 +15,26 @@ This guide provides step-by-step instructions for laboratory exercises and hands
 | [Discord Developer & Dual-Bot Setup](ref/discord.md) | Creating Discord applications, bot tokens, and permissions | Creating `n8n-bot` (`N8N_BOT_TOKEN`) and `hermes-bot` (`HERMES_BOT_TOKEN`), Message Content Intent, server invite links, Discord Channel ID extraction, Bot-to-Bot `@mention` protocol. |
 | [GitHub PAT & GitHub Pages Guide](ref/github.md) | Personal Access Tokens (Classic) and free repository hosting | Creating PATs (Classic) with `repo` scopes, security practices, creating custom repositories, enabling GitHub Pages on `/docs` folder, live URL mapping. |
 | [Hermes Agent Installation & Integration](ref/hermes.md) | Installing Hermes Agent and linking LLMs, Discord & GitHub CLI | Hermes installation script, LLM provider config (Ollama/OpenRouter), Discord gateway linking, automated specification processing, `gh` CLI auth, git identity config. |
+
+### Ecosystem Master Model & Port Connectivity Matrix
+
+#### **Recommended Ecosystem AI Model Identifiers**
+
+| Environment / Role | Primary Model Identifier | Provider / Engine | Target Node / Service |
+| :--- | :--- | :--- | :--- |
+| **Local Ollama Inference** | `gemma2` or `llama3.3` | Local Ollama Server (`127.0.0.1:11434`) | n8n Ollama nodes & Hermes Agent |
+| **Ollama Cloud Managed API** | `gemma4:31b-cloud` | Ollama Cloud (`https://ollama.com/v1`) | Default ecosystem model of choice |
+| **OpenRouter Free Tier** | `meta-llama/llama-3.3-70b-instruct:free` | OpenRouter (`https://openrouter.ai/api/v1`) | Primary cloud fallback model |
+| **OpenRouter Auto Routing** | `openrouter/auto` | OpenRouter Gateway | Dynamic performance routing |
+
+#### **Master Network Ports & Host Connectivity Reference**
+
+| Service Name | Default Port | Protocol / URL | Context & Binding |
+| :--- | :--- | :--- | :--- |
+| **Ollama Server Daemon** | `11434` | `http://localhost:11434` | Bound to `0.0.0.0:11434` for Docker (`host.docker.internal:11434`) |
+| **n8n Web Console** | `5678` | `http://localhost:5678` | Workflow orchestration UI & webhook callback endpoint |
+| **Hermes Gateway Daemon** | `8080` | `http://localhost:8080` | Listens for incoming Discord gateway messages & webhooks |
+
 
 ### Infrastructure & Self-Hosting Options
 
@@ -202,3 +219,24 @@ To complete your lab setup without dependency blockers, follow this order of set
 
 > **Note: Custom Laboratory Configuration**
 > - During the setup steps, you will create your own unique Google Drive folders, Discord channel IDs, and GitHub repositories. Be sure to update these custom values inside your n8n workflow nodes.
+
+---
+
+## End-to-End System Verification & Smoke Test Walkthrough
+
+Follow this verification procedure to confirm that your complete Synergy Marketing Ecosystem operates end-to-end:
+
+1. **Trigger Marketing Campaign**:
+   - Send a prompt to the **Marketing Agent** workflow in n8n (e.g., *"Create a launch campaign for a new AI productivity app"*).
+2. **Verify Orchestrator Dispatch**:
+   - Check n8n Executions log to confirm the **Orchestrator** receives the JSON plan and triggers downstream agents in parallel.
+3. **Verify Google Drive Deliverable**:
+   - Check your `Marketing Campaign Briefs` folder in Google Drive. A formatted Google Doc should be created and set to public read access.
+4. **Verify Discord Channel & Hermes Execution**:
+   - Open your Discord text channel. `n8n-bot` should post a message tagging `@hermes-bot` with attached specification `.md` files (`website-specification.md` and `analytics-specification.md`).
+   - `hermes-bot` will detect the tag, download the specs, generate website code into `docs/index.html`, and execute a `git push origin main`.
+5. **Verify GitHub Pages Live Deployment**:
+   - Visit your GitHub Pages live site URL (`https://<username>.github.io/<repo>/`) to view the deployed website prototype.
+6. **Verify Email Delivery**:
+   - Check your Gmail inbox for the final delivery summary email sent via Gmail API.
+

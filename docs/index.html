@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synergy AI Lab — Enterprise Multi-Agent Presentation</title>
+  <meta name="description" content="A slide presentation for Synergy AI Lab: Multi-agent orchestration, domain expertise empowerment, responsible AI guardrails, and collaborative workflows.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Theme Tokens
+       ========================================================================== */
+    :root {
+      /* Shared Typography & Layout Tokens */
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-code: 'Fira Code', monospace;
+      --transition-speed: 0.3s;
+      --border-radius-sm: 8px;
+      --border-radius-md: 14px;
+      --border-radius-lg: 20px;
+
+      /* Light Theme Colors */
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-glass: rgba(255, 255, 255, 0.75);
+      
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      
+      --border-color: rgba(226, 232, 240, 0.9);
+      --border-highlight: rgba(99, 102, 241, 0.3);
+      
+      --accent-primary: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-secondary: #0d9488;
+      --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #0d9488 100%);
+      --accent-glow: rgba(79, 70, 229, 0.15);
+
+      --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+      --card-shadow-hover: 0 20px 40px -10px rgba(79, 70, 229, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.05);
+
+      --badge-bg: #e0e7ff;
+      --badge-text: #3730a3;
+    }
+
+    [data-theme="dark"] {
+      /* Dark Theme Colors */
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1f2937;
+      --bg-card: rgba(17, 24, 39, 0.8);
+      --bg-glass: rgba(17, 24, 39, 0.7);
+      
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      
+      --border-color: rgba(31, 41, 55, 0.8);
+      --border-highlight: rgba(99, 102, 241, 0.4);
+      
+      --accent-primary: #6366f1;
+      --accent-hover: #818cf8;
+      --accent-secondary: #14b8a6;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #14b8a6 100%);
+      --accent-glow: rgba(99, 102, 241, 0.25);
+
+      --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+      --card-shadow-hover: 0 20px 40px -10px rgba(99, 102, 241, 0.3), 0 8px 20px -4px rgba(0, 0, 0, 0.4);
+
+      --badge-bg: rgba(99, 102, 241, 0.18);
+      --badge-text: #a5b4fc;
+    }
+
+    /* ==========================================================================
+       Global Reset & Background FX
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bg-ambient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.35;
+      transition: opacity var(--transition-speed);
+    }
+
+    [data-theme="light"] .bg-blob {
+      opacity: 0.45;
+    }
+
+    .blob-1 {
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
+    }
+
+    .blob-2 {
+      bottom: -15%;
+      right: -10%;
+      width: 55vw;
+      height: 55vw;
+      background: radial-gradient(circle, #14b8a6 0%, rgba(20, 184, 166, 0) 70%);
+    }
+
+    /* ==========================================================================
+       Header Navigation Bar
+       ========================================================================== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      transition: background var(--transition-speed), border-color var(--transition-speed);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: var(--accent-gradient);
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .brand-title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .icon-btn {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      width: 40px;
+      height: 40px;
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-gradient);
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ==========================================================================
+       Deck & Slide Layout
+       ========================================================================== */
+    main.deck-container {
+      position: relative;
+      width: 100vw;
+      height: calc(100vh - 130px);
+      margin-top: 70px;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 2rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.97) translateY(15px);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.45s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    .slide-content-wrapper {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .slide-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .slide-kicker {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .slide-kicker::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-primary);
+    }
+
+    .slide-title {
+      font-family: var(--font-heading);
+      font-size: 2.35rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 880px;
+      line-height: 1.5;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-highlight);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--border-radius-sm);
+      background: var(--accent-glow);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-list li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .card-list li::before {
+      content: "✓";
+      color: var(--accent-secondary);
+      font-weight: 700;
+    }
+
+    /* Architecture Flow Diagram */
+    .arch-diagram {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .workflow-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .flow-node {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-sm);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+      min-width: 150px;
+      transition: all 0.2s ease;
+    }
+
+    .flow-node:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-card);
+      transform: scale(1.02);
+    }
+
+    .flow-node-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: var(--accent-glow);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .flow-node-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .flow-node-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flow-node-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .flow-node-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .flow-arrow {
+      color: var(--accent-primary);
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    /* Tool Cards */
+    .tool-card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1.1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .tool-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .tool-logo {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: var(--bg-tertiary);
+      padding: 6px;
+    }
+
+    .tool-logo svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tool-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .tool-name {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .tool-role {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .tool-license {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-family: var(--font-code);
+    }
+
+    /* Pill & Banner */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      width: fit-content;
+    }
+
+    .banner-box {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(20, 184, 166, 0.08) 100%);
+      border: 1px solid var(--border-highlight);
+      border-radius: var(--border-radius-md);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .banner-text h3 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+    }
+
+    .banner-text p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       Footer Component & Presentation Controls
+       ========================================================================== */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      transition: background var(--transition-speed), border-color var(--transition-speed);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .slide-counter {
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .slide-counter span.current {
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .slide-select {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--border-radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .footer-center {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-btn {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--border-radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .nav-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .kbd-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    kbd {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0.15rem 0.4rem;
+      font-family: var(--font-code);
+      font-size: 0.7rem;
+      color: var(--text-primary);
+    }
+
+    /* Modal Grid */
+    .overview-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 4rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .overview-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .overview-title {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      overflow-y: auto;
+      padding-bottom: 2rem;
+    }
+
+    .thumb-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      padding: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+    }
+
+    .thumb-card:hover, .thumb-card.active {
+      border-color: var(--accent-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+    }
+
+    .thumb-number {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+
+    .thumb-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* Media Queries */
+    @media (max-width: 1024px) {
+      .slide { padding: 1.5rem 2rem; }
+      .slide-title { font-size: 2rem; }
+      .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      header { padding: 0 1rem; }
+      .slide { padding: 1rem; }
+      .slide-title { font-size: 1.5rem; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .kbd-hint { display: none; }
+      .workflow-flow { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light Background -->
+  <div class="bg-ambient">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="brand">
+      <div class="brand-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">SYNERGY</div>
+      </div>
+      <span class="brand-tag">AI Lab Ecosystem</span>
+    </a>
+
+    <div class="header-actions">
+      <!-- Grid Overview Button -->
+      <button class="icon-btn" id="toggleGridBtn" title="Slide Overview Grid (G)">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+      </button>
+
+      <!-- Theme Switcher Button -->
+      <button class="icon-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme (T)">
+        <svg id="sunIcon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moonIcon" viewBox="0 0 24 24" style="display:none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <!-- Fullscreen Button -->
+      <button class="icon-btn" id="fullscreenBtn" title="Toggle Fullscreen (F)">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </header>
+
+  <!-- Deck Container -->
+  <main class="deck-container" id="deckContainer">
+
+    <!-- ==========================================
+         SLIDE 1: Title & Executive Vision
+         ========================================== -->
+    <section class="slide active" data-slide="1" data-title="Executive Vision">
+      <div class="slide-content-wrapper">
+        <div class="slide-header">
+          <span class="slide-kicker">Enterprise AI Innovation</span>
+          <h1 class="slide-title">Synergy AI Laboratory</h1>
+          <p class="slide-subtitle">
+            An enterprise-grade multi-agent orchestration ecosystem built to combine technical learning, domain expertise, responsible AI safety, and cross-functional synergy.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+            </div>
+            <h3 class="card-title">Multi-Agent Orchestration</h3>
+            <p class="card-desc">
+              Synchronized agent workflows automates marketing campaign planning, Google Docs creation, live website building, and analytics simulation.
+            </p>
+            <ul class="card-list">
+              <li>n8n Visual Workflow Engine</li>
+              <li>Hermes Code Execution Engine</li>
+              <li>Parallel Task Dispatch & Fan-Out</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <h3 class="card-title">Domain Expertise First</h3>
+            <p class="card-desc">
+              Empower non-technical domain leaders (Marketing, Product, Analytics) to define business logic and direct AI outcomes directly.
+            </p>
+            <ul class="card-list">
+              <li>Prompt-to-Deliverable Workflow</li>
+              <li>Domain-Specific Rule Enforcement</li>
+              <li>Subject-Matter Expert Alignment</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="card-title">Responsible AI & Safety</h3>
+            <p class="card-desc">
+              Enterprise guardrails, Human-in-the-Loop (HITL) checkpoints, isolated Virtual Machine sandboxes, and secure credential handling.
+            </p>
+            <ul class="card-list">
+              <li>Human Approval Gates</li>
+              <li>VM Hypervisor Isolation</li>
+              <li>Zero-Trust Credential Rules</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <h3>Breaking Down Organizational Silos</h3>
+            <p>Synergy brings engineers, business leaders, and data analysts into a unified, transparent AI execution pipeline — ending fragmented experiments.</p>
+          </div>
+          <span class="pill">Unified Enterprise Platform</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 2: Core Philosophy & Value Pillars
+         ========================================== -->
+    <section class="slide" data-slide="2" data-title="Core Philosophy">
+      <div class="slide-content-wrapper">
+        <div class="slide-header">
+          <span class="slide-kicker">Strategic Foundations</span>
+          <h2 class="slide-title">Beyond Technical Learning</h2>
+          <p class="slide-subtitle">
+            While technical mastery of LLMs, n8n, and Git is essential, Synergy is grounded in three core pillars that maximize real-world business value.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <span class="pill">Pillar 01</span>
+            <h3 class="card-title">Technical Mastery</h3>
+            <p class="card-desc">
+              Hands-on mastery of modern AI agent architectures, local/cloud inference backends, event gateways, and self-hosted workflow platforms.
+            </p>
+            <ul class="card-list">
+              <li>Ollama & OpenRouter Model Integration</li>
+              <li>n8n Visual Workflow Orchestration</li>
+              <li>Virtual Machine Sandboxing (UTM & VirtualBox)</li>
+              <li>Discord Gateway & GitHub Pipelines</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="pill">Pillar 02</span>
+            <h3 class="card-title">Domain Expertise Harnessing</h3>
+            <p class="card-desc">
+              Technology is the enabler; domain knowledge is the driver. Synergy allows subject-matter experts to formulate prompts and evaluate output quality directly.
+            </p>
+            <ul class="card-list">
+              <li>Marketing Brief Synthesis</li>
+              <li>UI/UX Technical Specification Design</li>
+              <li>Analytics Data Projection Modeling</li>
+              <li>Real-time Strategic QA Review</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="pill">Pillar 03</span>
+            <h3 class="card-title">Responsible AI & Zero Silos</h3>
+            <p class="card-desc">
+              Cross-disciplinary collaboration replacing departmental silos, backed by strict safety protocols and ethical AI controls.
+            </p>
+            <ul class="card-list">
+              <li>Human-in-the-Loop (HITL) Checkpoints</li>
+              <li>Zero-Trust Credential Isolation</li>
+              <li>Synchronized Cross-Functional Execution</li>
+              <li>Transparent Execution Audit Logs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <h3>Human-in-the-Loop (HITL) Alignment</h3>
+            <p>Autonomous agents generate proposals and prototype code; human experts review, refine, and authorize final release to production.</p>
+          </div>
+          <span class="pill">Human-Guided AI</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 3: System Architecture Overview
+         ========================================== -->
+    <section class="slide" data-slide="3" data-title="System Architecture">
+      <div class="slide-content-wrapper">
+        <div class="slide-header">
+          <span class="slide-kicker">Infrastructure & Design</span>
+          <h2 class="slide-title">Ecosystem Architecture</h2>
+          <p class="slide-subtitle">
+            A modular 5-layered system connecting input triggers, central orchestrators, specialized agent workflows, VM execution sandboxes, and automated delivery targets.
+          </p>
+        </div>
+
+        <div class="arch-diagram">
+          <div class="workflow-flow">
+            <div class="flow-node">
+              <div class="flow-node-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              </div>
+              <div class="flow-node-info">
+                <div class="flow-node-title">1. User Prompt</div>
+                <div class="flow-node-sub">Marketing Input</div>
+              </div>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-node">
+              <div class="flow-node-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              </div>
+              <div class="flow-node-info">
+                <div class="flow-node-title">2. n8n Orchestrator</div>
+                <div class="flow-node-sub">Plan & Dispatch</div>
+              </div>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-node">
+              <div class="flow-node-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+              </div>
+              <div class="flow-node-info">
+                <div class="flow-node-title">3. Parallel Agents</div>
+                <div class="flow-node-sub">Doc, Dev, Analytics</div>
+              </div>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-node">
+              <div class="flow-node-icon">
+                <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <div class="flow-node-info">
+                <div class="flow-node-title">4. Hermes & Git</div>
+                <div class="flow-node-sub">VM Sandbox Build</div>
+              </div>
+            </div>
+
+            <div class="flow-arrow">→</div>
+
+            <div class="flow-node">
+              <div class="flow-node-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <div class="flow-node-info">
+                <div class="flow-node-title">5. Final Delivery</div>
+                <div class="flow-node-sub">GitHub Pages & Email</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">Orchestration & Data Flow</h3>
+            <ul class="card-list">
+              <li><strong>Marketing Agent:</strong> Translates chat input into a structured JSON strategy plan.</li>
+              <li><strong>Orchestrator:</strong> Evaluates plan logic and triggers sub-workflows in parallel.</li>
+              <li><strong>Marketing Document Agent:</strong> Generates formatted Google Docs & manages Drive sharing.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Autonomous Execution & Delivery</h3>
+            <ul class="card-list">
+              <li><strong>Dev & Analytics Agents:</strong> Formulate spec files and post to Discord.</li>
+              <li><strong>Hermes Agent:</strong> Listens to Discord, generates site code in VM, and pushes to Git.</li>
+              <li><strong>Delivery Email:</strong> Gmail API aggregates all live URLs and emails user inbox.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 4: How Agents Connect
+         ========================================== -->
+    <section class="slide" data-slide="4" data-title="Agent Connectivity">
+      <div class="slide-content-wrapper">
+        <div class="slide-header">
+          <span class="slide-kicker">Protocol & Connectivity</span>
+          <h2 class="slide-title">How Agents Connect</h2>
+          <p class="slide-subtitle">
+            Inter-agent communication relies on clean webhooks, event-driven Discord WebSocket messaging, and automated Git version control pipelines.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            </div>
+            <h3 class="card-title">1. n8n Node-to-Node Bus</h3>
+            <p class="card-desc">
+              The primary workflow engine acts as the central nerve center. Webhooks and Sub-workflow nodes route JSON payloads across specialized agent nodes.
+            </p>
+            <ul class="card-list">
+              <li>Structured JSON Payload Transfer</li>
+              <li>Parallel Task Fan-Out Execution</li>
+              <li>Exception Handling & Retry Retries</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            </div>
+            <h3 class="card-title">2. Discord Bot-to-Bot Gateway Protocol</h3>
+            <p class="card-desc">
+              `n8n-bot` posts spec files to Discord tagging `@hermes-bot`. The Hermes daemon listens to the WebSocket gateway stream and triggers processing instantly.
+            </p>
+            <ul class="card-list">
+              <li>Decoupled Async Message Queue</li>
+              <li>File Attachment & Context Passing</li>
+              <li>Transparent Discord Audit Trail</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3zM6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z"></path></svg>
+            </div>
+            <h3 class="card-title">3. Autonomous Sandbox Execution</h3>
+            <p class="card-desc">
+              Hermes Agent processes the specification inside an isolated Virtual Machine (Linux Mint / UTM), executing shell scripts, creating HTML/JS, and testing logic.
+            </p>
+            <ul class="card-list">
+              <li>Isolated Linux VM Execution</li>
+              <li>Automated Code Refactoring</li>
+              <li>GitHub CLI (`gh`) Authentication</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <h3 class="card-title">4. GitHub Pages Deployment</h3>
+            <p class="card-desc">
+              Once code generation is complete, Hermes executes `git push origin main` into target repositories, triggering GitHub Pages live deployment automatically.
+            </p>
+            <ul class="card-list">
+              <li>Automated CI/CD Web Hosting</li>
+              <li>Live Production URL Mapping</li>
+              <li>Version-Controlled Commit History</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5: Technology Stack & Tools Grid
+         ========================================== -->
+    <section class="slide" data-slide="5" data-title="Tools & Technology">
+      <div class="slide-content-wrapper">
+        <div class="slide-header">
+          <span class="slide-kicker">Technology Ecosystem</span>
+          <h2 class="slide-title">Architecture & Tools Stack</h2>
+          <p class="slide-subtitle">
+            Powered by leading open-source frameworks and enterprise API platforms — connected through standardized protocols.
+          </p>
+        </div>
+
+        <div class="grid-4">
+          <!-- Tool 1: n8n Engine -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 32 32" fill="none">
+                <path d="M10 6a4 4 0 100 8 4 4 0 000-8zM4 14a4 4 0 100 8 4 4 0 000-8zM18 14a4 4 0 100 8 4 4 0 000-8zM10 22a4 4 0 100 8 4 4 0 000-8z" fill="#FF6D5A"/>
+                <path d="M12.8 8.5h7.4v3h-7.4zM6.8 16.5h7.4v3H6.8zM12.8 24.5h7.4v3h-7.4z" fill="#FF6D5A"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">n8n Engine</div>
+              <div class="tool-role">Workflow Orchestrator</div>
+              <div class="tool-license">Sustainable Use / Fair-Code</div>
+            </div>
+          </div>
+
+          <!-- Tool 2: Google Cloud APIs -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                <path fill="#4285F4" d="M19.35 10.04C18.67 6.59 15.64 4 12 4c-1.48 0-2.85.43-4.01 1.17l2.89 2.89C11.37 8.02 11.68 8 12 8c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 .37-.07.72-.18 1.05l2.42 2.42C23.63 19.32 24 17.72 24 16c0-2.64-2.05-4.78-4.65-4.96z"/>
+                <path fill="#FBBC05" d="M5.35 8.04A5.994 5.994 0 000 14c0 1.72.73 3.27 1.9 4.37l2.12-2.12C3.39 15.68 3 14.89 3 14c0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95c.42-.79.99-1.48 1.66-2.05L7.67 4.8C6.63 5.66 5.8 6.75 5.35 8.04z"/>
+                <path fill="#34A853" d="M19 18H6c-.89 0-1.68-.39-2.25-1.02l-2.12 2.12C2.73 20.27 4.28 21 6 21h13c2.76 0 5-2.24 5-5 0-.72-.15-1.4-.42-2.02l-2.42 2.42c.54.67.84 1.54.84 2.6 0 1.65-1.35 3-3 3z"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">Google Cloud APIs</div>
+              <div class="tool-role">Gmail, Drive & Docs OAuth</div>
+              <div class="tool-license">Commercial / OAuth 2.0</div>
+            </div>
+          </div>
+
+          <!-- Tool 3: Hermes Agent -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+                <path d="M12 6l-5 4v4l5-3 5 3v-4l-5-4z"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">Hermes Agent</div>
+              <div class="tool-role">Autonomous Code Exec</div>
+              <div class="tool-license">Open Source (MIT)</div>
+            </div>
+          </div>
+
+          <!-- Tool 4: Ollama Backend -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2a8 8 0 00-8 8v7a3 3 0 003 3h10a3 3 0 003-3v-7a8 8 0 00-8-8zm-3.5 7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm7 0a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM8 16a4 4 0 018 0H8z"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">Ollama Backend</div>
+              <div class="tool-role">Local LLM Inference</div>
+              <div class="tool-license">Open Source (MIT)</div>
+            </div>
+          </div>
+
+          <!-- Tool 5: OpenRouter -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3v18M3 12h18M5.636 5.636l12.728 12.728M18.364 5.636L5.636 18.364"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">OpenRouter</div>
+              <div class="tool-role">Cloud Model Router</div>
+              <div class="tool-license">Commercial API Gateway</div>
+            </div>
+          </div>
+
+          <!-- Tool 6: Discord Gateway -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 24 24" fill="#5865F2">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .079.009c.12.098.245.195.372.288a.077.077 0 0 1-.006.127c-.598.35-1.22.65-1.873.893a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">Discord Gateway</div>
+              <div class="tool-role">Dual-Bot Event Gateway</div>
+              <div class="tool-license">Proprietary / Developer API</div>
+            </div>
+          </div>
+
+          <!-- Tool 7: GitHub & Pages -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">GitHub & Pages</div>
+              <div class="tool-role">Git Repos & Static Host</div>
+              <div class="tool-license">Free Tier / Developer PAT</div>
+            </div>
+          </div>
+
+          <!-- Tool 8: VirtualBox / UTM -->
+          <div class="tool-card">
+            <div class="tool-logo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <div class="tool-meta">
+              <div class="tool-name">VirtualBox / UTM</div>
+              <div class="tool-role">Isolated Linux Sandboxes</div>
+              <div class="tool-license">Open Source (GPL / Apache)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <h3>Enterprise Interoperability</h3>
+            <p>All tools communicate via REST APIs, WebSockets, Git CLI, and OAuth 2.0, guaranteeing zero vendor lock-in and modular flexibility.</p>
+          </div>
+          <span class="pill">Open API Standard</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 6: Responsible AI & Guardrails
+         ========================================== -->
+    <section class="slide" data-slide="6" data-title="Responsible AI">
+      <div class="slide-content-wrapper">
+        <div class="slide-header">
+          <span class="slide-kicker">Governance & Trust</span>
+          <h2 class="slide-title">Responsible AI & Guardrails</h2>
+          <p class="slide-subtitle">
+            Deploying AI at enterprise scale requires embedded security, auditability, data privacy, and mandatory human oversight.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="card-title">1. VM Execution Sandboxing</h3>
+            <p class="card-desc">
+              Autonomous shell execution runs strictly inside guest Linux VMs (VirtualBox / UTM). The host environment and primary network remain completely protected.
+            </p>
+            <ul class="card-list">
+              <li>Hypervisor Hardware Boundary</li>
+              <li>Read-Only Shared Mount Protection</li>
+              <li>Clean Ephemeral OS Sessions</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3 class="card-title">2. Zero-Trust Secrets Defense</h3>
+            <p class="card-desc">
+              API tokens and credentials live inside n8n encrypted vaults and environment files (`.env`). Hardcoding credentials into code or Git is blocked.
+            </p>
+            <ul class="card-list">
+              <li>Minimal OAuth 2.0 Scopes</li>
+              <li>Automated Git Secret Scanning</li>
+              <li>Encrypted Environment Store</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></svg>
+            </div>
+            <h3 class="card-title">3. Human-in-the-Loop (HITL) Validation</h3>
+            <p class="card-desc">
+              Key milestones (such as emailing public stakeholders or deploying code) require explicit human sign-off from domain leaders.
+            </p>
+            <ul class="card-list">
+              <li>n8n Interactive Approval Nodes</li>
+              <li>Discord Reaction Approval Hooks</li>
+              <li>Complete Timestamp Audit Trail</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            </div>
+            <h3 class="card-title">4. Model Fallbacks & Safety Chains</h3>
+            <p class="card-desc">
+              Multi-provider fallbacks (`openrouter/auto`, local Ollama) ensure the ecosystem operates without interruption or single-point dependency failures.
+            </p>
+            <ul class="card-list">
+              <li>Automatic Provider Failover</li>
+              <li>Strict JSON Schema Validation</li>
+              <li>Graceful Failure Recovery</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 7: Summary & Laboratory Outcomes
+         ========================================== -->
+    <section class="slide" data-slide="7" data-title="Laboratory Outcomes">
+      <div class="slide-content-wrapper">
+        <div class="slide-header">
+          <span class="slide-kicker">Call to Action</span>
+          <h2 class="slide-title">Unlocking Synergy AI Laboratory</h2>
+          <p class="slide-subtitle">
+            Transform corporate AI strategy from isolated experiments into a synchronized, responsible, and domain-powered multi-agent ecosystem.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <span class="pill">Outcome 01</span>
+            <h3 class="card-title">Rapid Prototyping</h3>
+            <p class="card-desc">
+              Go from a text prompt to a live published website, analytics portal, and Google Drive campaign document in minutes.
+            </p>
+          </div>
+
+          <div class="card">
+            <span class="pill">Outcome 02</span>
+            <h3 class="card-title">Empowered Teams</h3>
+            <p class="card-desc">
+              Non-technical experts guide AI agents directly while software engineers focus on high-impact infrastructure and capabilities.
+            </p>
+          </div>
+
+          <div class="card">
+            <span class="pill">Outcome 03</span>
+            <h3 class="card-title">Enterprise Security</h3>
+            <p class="card-desc">
+              Built on ethical AI principles, VM hypervisor sandboxes, zero-trust credential rules, and human oversight.
+            </p>
+          </div>
+        </div>
+
+        <div class="banner-box">
+          <div class="banner-text">
+            <h3>Ready to Launch Your Synergy AI Lab?</h3>
+            <p>Review the step-by-step setup guide in <code>overview.md</code>, configure your n8n nodes, connect Hermes Agent, and launch your multi-agent workflow.</p>
+          </div>
+          <a href="../overview.md" class="nav-btn" style="text-decoration:none;">View Setup Guide →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Overview Grid Modal -->
+  <div class="overview-modal" id="overviewModal">
+    <div class="overview-header">
+      <div class="overview-title">Presentation Overview</div>
+      <button class="icon-btn" id="closeGridBtn" title="Close Grid (Esc)">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </div>
+
+  <!-- Footer Controls -->
+  <footer>
+    <div class="footer-left">
+      <div class="slide-counter">
+        <span class="current" id="currentSlideNum">01</span> / <span id="totalSlideNum">07</span>
+      </div>
+      <select class="slide-select" id="slideDropdown" aria-label="Jump to slide"></select>
+    </div>
+
+    <div class="footer-center">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (← / PageUp)">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Prev
+      </button>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (→ / Space / PageDown)">
+        Next
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <div class="footer-right">
+      <div class="kbd-hint">
+        Use <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> to navigate
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentSlideIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const currentSlideNum = document.getElementById('currentSlideNum');
+      const totalSlideNum = document.getElementById('totalSlideNum');
+      const progressBar = document.getElementById('progressBar');
+      const slideDropdown = document.getElementById('slideDropdown');
+      
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const sunIcon = document.getElementById('sunIcon');
+      const moonIcon = document.getElementById('moonIcon');
+      const htmlEl = document.documentElement;
+
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const toggleGridBtn = document.getElementById('toggleGridBtn');
+      const closeGridBtn = document.getElementById('closeGridBtn');
+      const overviewModal = document.getElementById('overviewModal');
+      const overviewGrid = document.getElementById('overviewGrid');
+
+      totalSlideNum.textContent = String(totalSlides).padStart(2, '0');
+
+      // Populate Dropdown & Overview Modal Cards
+      slides.forEach((slide, idx) => {
+        const slideNum = idx + 1;
+        const title = slide.dataset.title || `Slide ${slideNum}`;
+
+        const option = document.createElement('option');
+        option.value = idx;
+        option.textContent = `${slideNum}. ${title}`;
+        slideDropdown.appendChild(option);
+
+        const card = document.createElement('div');
+        card.className = `thumb-card ${idx === 0 ? 'active' : ''}`;
+        card.dataset.index = idx;
+        card.innerHTML = `
+          <div class="thumb-number">SLIDE ${String(slideNum).padStart(2, '0')}</div>
+          <div class="thumb-title">${title}</div>
+        `;
+        card.addEventListener('click', () => {
+          goToSlide(idx);
+          closeOverviewModal();
+        });
+        overviewGrid.appendChild(card);
+      });
+
+      function goToSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+
+        slides[currentSlideIndex].classList.remove('active');
+        currentSlideIndex = index;
+        slides[currentSlideIndex].classList.add('active');
+
+        currentSlideNum.textContent = String(currentSlideIndex + 1).padStart(2, '0');
+        slideDropdown.value = currentSlideIndex;
+        prevBtn.disabled = currentSlideIndex === 0;
+        nextBtn.disabled = currentSlideIndex === totalSlides - 1;
+
+        const progressPct = ((currentSlideIndex + 1) / totalSlides) * 100;
+        progressBar.style.width = `${progressPct}%`;
+
+        const thumbCards = overviewGrid.querySelectorAll('.thumb-card');
+        thumbCards.forEach((card, idx) => {
+          card.classList.toggle('active', idx === currentSlideIndex);
+        });
+
+        slides[currentSlideIndex].scrollTop = 0;
+      }
+
+      prevBtn.addEventListener('click', () => goToSlide(currentSlideIndex - 1));
+      nextBtn.addEventListener('click', () => goToSlide(currentSlideIndex + 1));
+      slideDropdown.addEventListener('change', (e) => goToSlide(parseInt(e.target.value, 10)));
+
+      // Keyboard Controls
+      document.addEventListener('keydown', (e) => {
+        if (['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+          e.preventDefault();
+          goToSlide(currentSlideIndex + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          goToSlide(currentSlideIndex - 1);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 't') {
+          toggleTheme();
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullscreen();
+        } else if (e.key.toLowerCase() === 'g') {
+          toggleOverviewModal();
+        } else if (e.key === 'Escape') {
+          closeOverviewModal();
+        }
+      });
+
+      // Mobile Touch Swiping
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) goToSlide(currentSlideIndex + 1);
+        if (touchEndX > touchStartX + 50) goToSlide(currentSlideIndex - 1);
+      }, { passive: true });
+
+      // Theme Toggle Logic
+      function setTheme(theme) {
+        htmlEl.setAttribute('data-theme', theme);
+        localStorage.setItem('synergy-theme', theme);
+        if (theme === 'dark') {
+          sunIcon.style.display = 'block';
+          moonIcon.style.display = 'none';
+        } else {
+          sunIcon.style.display = 'none';
+          moonIcon.style.display = 'block';
+        }
+      }
+
+      function toggleTheme() {
+        const currentTheme = htmlEl.getAttribute('data-theme') || 'dark';
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      }
+
+      const savedTheme = localStorage.getItem('synergy-theme') || 
+        (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      setTheme(savedTheme);
+
+      themeToggleBtn.addEventListener('click', toggleTheme);
+
+      // Fullscreen Logic
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => console.error(err));
+        } else if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+      // Modal Grid
+      function toggleOverviewModal() {
+        overviewModal.classList.toggle('active');
+      }
+      function closeOverviewModal() {
+        overviewModal.classList.remove('active');
+      }
+
+      toggleGridBtn.addEventListener('click', toggleOverviewModal);
+      closeGridBtn.addEventListener('click', closeOverviewModal);
+
+      goToSlide(0);
+    });
+  </script>
+</body>
+</html>

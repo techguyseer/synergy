@@ -1,6 +1,12 @@
 # Hermes Agent Installation & Integration Guide
 
+> **Setup Navigation**: [Step 4: GitHub PAT & GitHub Pages Setup](github.md) | **Step 5: Hermes Agent Installation & Integration**
+
 This guide provides comprehensive, step-by-step instructions for installing, configuring, and deploying the **Hermes Agent** as the autonomous execution layer of the **Synergy Marketing Ecosystem** — running on a separate environment (local machine, WSL2, dedicated VM, or VPS), configuring **LLM provider credentials** (Ollama Cloud API, local Ollama, OpenRouter), setting **execution guardrails**, configuring the **Gateway Service**, linking to **Discord**, and authenticating **GitHub CLI (`gh`)**.
+
+> 💡 **Non-Technical Note:**  
+
+> **What is Hermes Agent & Guardrails?** Hermes Agent is an autonomous AI developer that reads Discord prompts, generates code, and pushes updates to GitHub. **Guardrails** are safety switches (`smart`, `manual`, `off`) that dictate whether Hermes auto-executes terminal commands or asks for your permission first. Need more definitions? See **[Synergy Glossary](glossary.md)**.
 
 ---
 
@@ -18,6 +24,7 @@ This guide provides comprehensive, step-by-step instructions for installing, con
 ## Overview & Architecture
 
 Hermes Agent operates as an autonomous task execution engine. It accepts instructions, runs code and terminal commands, interacts with GitHub repositories via `gh`, and communicates with users and external workflow platforms (like **n8n**) through multi-channel gateways (such as **Discord**).
+
 
 ```
    +-------------------+        +----------------------+        +------------------------+
@@ -51,6 +58,25 @@ Before installation, choose the operational mode that fits your deployment archi
 
 ---
 
+## Video Setup & Installation Tutorials
+
+Prefer watching a visual video walkthrough? You can watch step-by-step installation guides below:
+
+### Ecosystem Step-by-Step Installation Video
+- **[Synergy Ecosystem - Hermes Agent Installation & Setup Walkthrough](https://drive.google.com/file/d/1T4TsF785xv9JdrbwBxIiRghjXI_hvldj/view?usp=sharing)**  
+  *(Full video demonstration covering environment preparation, Ollama setup, credential configuration, Discord gateway integration, and test executions).*
+
+### Recommended YouTube Beginners Guides
+- **[Hermes Agent Tutorial for Beginners (Full Step-by-Step Setup)](https://www.youtube.com/results?search_query=hermes+agent+tutorial+for+beginners)**  
+
+  *(Beginner crash course covering 1-line installation, model connections, and gateway setups).*
+- **[Hermes Agent: The Ultimate Beginner's Guide](https://www.youtube.com/results?search_query=hermes+agent+ultimate+beginners+guide)**  
+  *(Comprehensive walkthrough covering skills, persistent memory, and VPS/VM deployment).*
+- **[How to Install Hermes Agent on Windows & Linux (Full Setup)](https://www.youtube.com/results?search_query=how+to+install+hermes+agent+windows+linux)**  
+  *(Guide for setting up Hermes Agent on Linux VMs, WSL2, and desktop operating systems).*
+
+---
+
 ## Step 1: Installing Hermes Agent CLI
 
 ### Virtual Machine Setup Prerequisites (Ubuntu / Linux VM)
@@ -69,12 +95,17 @@ When setting up Hermes Agent inside a Virtual Machine (UTM, VirtualBox, or dedic
    ```bash
    curl -fsSL https://ollama.com/install.sh | sh
    ```
-4. **Login on Discord in Browser** *(Optional)*:
+4. **Login to Ollama**: Required for registering your machine to use the LLM token:
+   ```bash
+   ollama login
+   ```
+5. **Login on Discord in Browser**:
    - Log in to [Discord](https://discord.com) in your VM's web browser to easily access the Developer Portal.
-5. **Ready Setup of Discord Bots**:
+6. **Ready Setup of Discord Bots**:
    - Create your application at [Discord Developer Portal](https://discord.com/developers/applications).
-   - Turn **ON** **Server Members Intent** and **Message Content Intent** (Bot settings).
-   - Copy your **Bot Token** and numerical **Discord User ID** (from Discord Settings -> Advanced -> Developer Mode).
+   - On Bot Settings: Turn **ON** **Presence Intenet**, **Server Members Intent**, and **Message Content Intent**.
+   - Copy your **Bot Token** you may reset it in case you have created this for the first time
+   - Extract the **Discord User ID** (from Discord Settings -> Advanced -> Developer Mode). You may leave the confiurations in hermes agent ```DISCORD_ALLOWED_USERS=true``` for testing and debugging purposes.
 
 ---
 
@@ -109,73 +140,36 @@ hermes setup
 
 ## Step 2: Configuring LLM Providers & Models
 
-Hermes requires access to a Large Language Model (LLM) provider. You can configure providers using the interactive CLI wizard, dedicated `hermes model` commands, editing environment variables (`.env`), or editing `config.yaml`.
+Hermes requires access to a Large Language Model (LLM) provider. The recommended fast-track method is running `hermes setup` in your terminal. For manual or advanced configuration choices, click to expand the options below:
 
----
+<details>
+<summary><b>Option A: Managing Models via hermes model CLI Commands</b></summary>
 
-### Option A: Managing Models via `hermes model` CLI Commands
+The `hermes model` command suite allows you to add, list, switch, and test LLM models directly from your terminal:
 
-The `hermes model` command suite allows you to add, list, switch, and test LLM models directly from your terminal.
-
-#### 1. Add a Model (`hermes model add`)
-
-- **Add Ollama Cloud API Model**:
-  ```bash
-  hermes model add \
-    --name "gemma4:31b-cloud" \
-    --provider "ollama" \
-    --url "https://ollama.com/api" \
-    --api-key "$OLLAMA_API_KEY"
-  ```
-
-- **Add Local Ollama Model**:
-  1. Install Ollama locally (if not already installed):
-     ```bash
-     curl -fsSL https://ollama.com/install.sh | sh
-     ```
-  2. Download/pull your preferred model:
-     ```bash
-     ollama pull qwen3.6
-     ```
-  3. Register model with Hermes CLI (auto-detected at `http://127.0.0.1:11434`):
-     ```bash
-     hermes model add \
-       --name "qwen3.6" \
-       --provider "ollama" \
-       --url "http://localhost:11434"
-     ```
-
-- **Add OpenRouter Model**:
-  ```bash
-  hermes model add \
-    --name "meta-llama/llama-3.3-70b-instruct:free" \
-    --provider "openrouter" \
-    --api-key "$OPENROUTER_API_KEY"
-  ```
-
-> **Tip (Nous Portal):** You can also use **Nous Portal** (`hermes setup --portal`), a paid all-in-one subscription that bundles model access, web search, image generation, and other capabilities under one unified API key.
-
-#### 2. List Configured Models (`hermes model list`)
 ```bash
-hermes model list
-```
-*Output displays active model, provider, base URL, and health status.*
+# Add Ollama Cloud API Model
+hermes model add \
+  --name "gemma4:31b-cloud" \
+  --provider "ollama" \
+  --url "https://ollama.com/v1" \
+  --api-key "$OLLAMA_API_KEY"
 
-#### 3. Select Active Default Model (`hermes model set`)
-```bash
+# Set active model
 hermes model set "gemma4:31b-cloud"
-```
 
-#### 4. Test Model Connection (`hermes model test`)
-```bash
+# Test model connection
 hermes model test "gemma4:31b-cloud"
 ```
 
----
+> **Tip (Nous Portal):** You can also use **Nous Portal** (`hermes setup --portal`), a paid subscription that bundles model access, web search, image generation, and other capabilities under one unified key.
 
-### Option B: Modifying Settings via CLI `.env` Commands
+</details>
 
-You can set configuration parameters and environment variables non-interactively using CLI helper commands:
+<details>
+<summary><b>Option B: Modifying Settings via CLI hermes env / config Commands</b></summary>
+
+Set configuration parameters non-interactively using CLI helper commands:
 
 ```bash
 # Set LLM credentials
@@ -184,84 +178,47 @@ hermes env set OPENROUTER_API_KEY="sk-or-v1-your-key-here"
 
 # Set core LLM configuration
 hermes config set llm.provider "ollama"
-hermes config set llm.base_url "https://ollama.com/api"
+hermes config set llm.base_url "https://ollama.com/v1"
 hermes config set llm.model "gemma4:31b-cloud"
-
-# View active environment configuration
-hermes env list
 ```
 
----
+</details>
 
-### Option C: Manual `.env` File Modification
+<details>
+<summary><b>Option C: Manual .env File Modification (~/.config/hermes/.env)</b></summary>
 
-For headless environments or version-controlled deployment templates, you can create and edit the environment configuration file directly at `~/.config/hermes/.env` (or local project `.env`).
-
-#### Editing via Terminal Text Editors
-
-```bash
-# Open or create .env using nano
-nano ~/.config/hermes/.env
-```
-*(Or use `vim ~/.config/hermes/.env` or open in VS Code with `code ~/.config/hermes/.env`)*
-
-#### Standard `.env` File Structure
-
-Paste and edit the following template in your `.env` file:
+Create and edit the environment configuration file directly at `~/.config/hermes/.env`:
 
 ```env
-# ==============================================================================
-# HERMES AGENT ENVIRONMENT CONFIGURATION
 # Location: ~/.config/hermes/.env
-# ==============================================================================
-
-# LLM Provider Configuration (ollama | openrouter)
 HERMES_LLM_PROVIDER="ollama"
 HERMES_LLM_MODEL="gemma4:31b-cloud"
-HERMES_OLLAMA_BASE_URL="https://ollama.com/api"
+HERMES_OLLAMA_BASE_URL="https://ollama.com/v1"
 OLLAMA_API_KEY="your_ollama_cloud_api_key_here"
-OPENROUTER_API_KEY="sk-or-v1-your-openrouter-key-here"
-
-# Execution Guardrails (auto | semi-auto | manual)
 HERMES_GUARDRAILS="auto"
-
-# Gateway & Discord Integration
 HERMES_GATEWAY_PLATFORM="discord"
-HERMES_BOT_TOKEN="your_discord_bot_token_here"
-HERMES_ALLOWED_USERS="123456789012345678,987654321098765432"
-
-# GitHub Integration Credentials
-GITHUB_TOKEN="ghp_your_github_personal_access_token_here"
+DISCORD_BOT_TOKEN="your_discord_bot_token_here"
+DISCORD_ALLOWED_USERS="123456789012345678"
+GITHUB_TOKEN="ghp_your_github_pat_token_here"
 ```
 
-After editing, restrict file permissions for security:
-```bash
-chmod 600 ~/.config/hermes/.env
-```
+</details>
 
----
+<details>
+<summary><b>Option D: Structured YAML Configuration (~/.config/hermes/config.yaml)</b></summary>
 
-### Option D: YAML Configuration (`~/.config/hermes/config.yaml`)
-
-Alternatively, configure Hermes using the structured YAML file at `~/.config/hermes/config.yaml`:
+Alternatively, configure Hermes using `~/.config/hermes/config.yaml`:
 
 ```yaml
 llm:
-  provider: "ollama" # Options: ollama, openrouter
-  base_url: "https://ollama.com/api" # Use http://localhost:11434 for local Ollama
+  provider: "ollama"
+  base_url: "https://ollama.com/v1"
   model: "gemma4:31b-cloud"
   api_key: "${OLLAMA_API_KEY}"
-
-agent:
-  system_prompt: "You are Hermes Agent, an autonomous marketing ecosystem developer integrated with Discord and GitHub."
-  guardrails: "auto" # Options: auto, semi-auto, manual
-
-gateway:
-  platform: "discord"
-  bot_token: "${HERMES_BOT_TOKEN}"
-  allowed_users:
-    - "123456789012345678" # Your numerical Discord User ID
 ```
+
+</details>
+
 
 ---
 
@@ -320,8 +277,12 @@ Before starting the gateway, ensure your Discord Application in the [Discord Dev
 3. **Bot Installation Scopes & Permissions**:
    - Scopes: `bot`, `applications.commands`
    - Permissions: `View Channels`, `Send Messages`, `Embed Links`, `Attach Files`, `Read Message History`.
-4. **Access Protection**:
-   - Hermes restricts bot interaction to authorized Discord User IDs only. Unlisted users are denied by default.
+4. **Access Protection & Required Authorization (`DISCORD_ALLOWED_USERS` & `DISCORD_ALLOW_ALL_USERS`)**:
+   - **`DISCORD_ALLOWED_USERS`** (or `HERMES_ALLOWED_USERS`): **Required field**. Specifies authorized numerical Discord User IDs (e.g., `123456789012345678`). Hermes Agent follows a **fail-closed security model**; if not configured, the bot ignores all incoming messages.
+   - **`DISCORD_ALLOWED_CHANNELS`** (or `HERMES_ALLOWED_CHANNELS`): **Required/Recommended field**. Restricts bot responses to specific Discord text channel IDs (e.g., `112233445566778899`).
+   - 💡 **Debugging / Testing Overrides**: 
+     - You can set **`DISCORD_ALLOWED_USERS=true`** (or `DISCORD_ALLOW_ALL_USERS=true`) during debugging to allow **any** Discord user to interact with the agent without restriction.
+     - You can also leave `DISCORD_ALLOWED_CHANNELS` blank (`""`) so Hermes responds across all server channels.
 
 ### 2. Interactive Gateway Setup (`hermes gateway setup`)
 
@@ -332,9 +293,10 @@ hermes gateway setup
 ```
 
 1. Select **Discord** as the gateway platform.
-2. Enter your **Discord Bot Token** (`HERMES_BOT_TOKEN` created in [ref/discord.md](discord.md)).
-3. Enter your numerical **Discord User ID** (obtained from Discord settings in Developer Mode) to populate the admin whitelist (`HERMES_ALLOWED_USERS`).
-4. Confirm port and host settings (default gateway port: `8080`).
+2. Enter your **Discord Bot Token** (`DISCORD_BOT_TOKEN` created in [ref/discord.md](discord.md)).
+3. Set **Allowed Users** (`DISCORD_ALLOWED_USERS`): Enter comma-separated numerical Discord User IDs *(or enter `true` / set `DISCORD_ALLOW_ALL_USERS=true` for debugging)*.
+4. Set **Allowed Channels** (`DISCORD_ALLOWED_CHANNELS`): Enter comma-separated numerical Discord Channel IDs *(or leave blank for all channels)*.
+5. Confirm port and host settings (default gateway port: `8080`).
 
 ---
 
@@ -498,7 +460,7 @@ hermes env set OLLAMA_API_KEY="$OLLAMA_API_KEY"
 hermes model add \
   --name "gemma4:31b-cloud" \
   --provider "ollama" \
-  --url "https://ollama.com/api" \
+  --url "https://ollama.com/v1" \
   --api-key "$OLLAMA_API_KEY"
 
 # 3. Set active model and test endpoint connection
@@ -514,9 +476,11 @@ hermes config set agent.guardrails auto
 
 ### Phase 4: Configure Discord Gateway Integration
 ```bash
-# 1. Store Discord Bot Token and Admin User ID in .env
-hermes env set HERMES_BOT_TOKEN="your_discord_bot_token_here"
-hermes env set HERMES_ALLOWED_USERS="your_numerical_discord_user_id"
+# 1. Store Discord Bot Token, Allowed Users, and Allowed Channels in .env
+hermes env set DISCORD_BOT_TOKEN="your_discord_bot_token_here"
+hermes env set DISCORD_ALLOWED_USERS="your_numerical_discord_user_id"     # Or set DISCORD_ALLOWED_USERS="true" for debugging
+hermes env set DISCORD_ALLOWED_CHANNELS="your_numerical_discord_channel_id" # Or leave blank for all channels
+hermes env set DISCORD_ALLOW_ALL_USERS="false"                                # Set "true" for debugging to allow all users
 
 # 2. Run Gateway Setup Wizard
 hermes gateway setup
@@ -624,12 +588,13 @@ fi
 
 # Configuration Defaults (overridden by loaded environment variables)
 OLLAMA_API_KEY="${OLLAMA_API_KEY:-}"
-OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-https://ollama.com/api}"
+OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-https://ollama.com/v1}"
 HERMES_LLM_PROVIDER="${HERMES_LLM_PROVIDER:-ollama}"
 HERMES_LLM_MODEL="${HERMES_LLM_MODEL:-gemma4:31b-cloud}"
 HERMES_GUARDRAILS="${HERMES_GUARDRAILS:-auto}"
 HERMES_BOT_TOKEN="${HERMES_BOT_TOKEN:-}"
 HERMES_ALLOWED_USERS="${HERMES_ALLOWED_USERS:-}"
+HERMES_ALLOWED_CHANNELS="${HERMES_ALLOWED_CHANNELS:-}"
 GITHUB_TOKEN="${GITHUB_TOKEN:-}"
 GIT_USER_NAME="${GIT_USER_NAME:-Hermes Agent Bot}"
 GIT_USER_EMAIL="${GIT_USER_EMAIL:-hermes-bot@users.noreply.github.com}"
@@ -661,6 +626,7 @@ HERMES_GUARDRAILS="${HERMES_GUARDRAILS}"
 HERMES_GATEWAY_PLATFORM="discord"
 HERMES_BOT_TOKEN="${HERMES_BOT_TOKEN}"
 HERMES_ALLOWED_USERS="${HERMES_ALLOWED_USERS}"
+HERMES_ALLOWED_CHANNELS="${HERMES_ALLOWED_CHANNELS}"
 GITHUB_TOKEN="${GITHUB_TOKEN}"
 EOF
 chmod 600 "$HOME/.config/hermes/.env"
@@ -698,7 +664,8 @@ if [ -n "$HERMES_BOT_TOKEN" ]; then
     hermes gateway setup --non-interactive \
         --platform discord \
         --bot-token "$HERMES_BOT_TOKEN" \
-        --allowed-users "$HERMES_ALLOWED_USERS" || true
+        --allowed-users "$HERMES_ALLOWED_USERS" \
+        --allowed-channels "$HERMES_ALLOWED_CHANNELS" || true
 
     hermes gateway install-service || true
 fi
@@ -721,8 +688,8 @@ echo -e "${GREEN}====================================================${NC}"
 > If your host machine or Virtual Machine is powered off, Hermes Agent will cease responding on Discord. For reliable production operations, deploy Hermes on a dedicated 24/7 Virtual Private Server (VPS) or cloud VM.
 
 > [!IMPORTANT]
-> **Privileged Terminal Execution & User ID Whitelisting**
-> Because Hermes Agent runs shell commands, keep `HERMES_ALLOWED_USERS` strictly restricted to trusted numerical Discord User IDs. Unauthorized users must not be permitted to issue execution prompts.
+> **Fail-Closed Security Model & User Authorization (`DISCORD_ALLOWED_USERS`)**
+> Hermes Agent enforces a **fail-closed** security model: by default, the gateway ignores all inbound messages unless authorized users are specified in `DISCORD_ALLOWED_USERS` (or `HERMES_ALLOWED_USERS`). For debugging or testing, set `DISCORD_ALLOWED_USERS=true` or `DISCORD_ALLOW_ALL_USERS=true` to allow all users.
 
 ---
 
@@ -731,12 +698,12 @@ echo -e "${GREEN}====================================================${NC}"
 | Symptom / Error Message | Probable Cause | Recommended Solution |
 | :--- | :--- | :--- |
 | `hermes doctor` reports LLM endpoint connection error | Selected provider (Ollama Cloud, local Ollama, or OpenRouter) is unreachable or missing API key. | Test model connection using `hermes model test <model_name>` or smoke test `hermes chat -q "Reply with exactly: provider ok"`. Verify API keys in `~/.config/hermes/.env` or `~/.hermes/.env`. |
-| Discord bot is online but never replies | **Message Content Intent** is disabled in Discord Developer Portal. | Go to Discord Developer Portal > Bot > Privileged Gateway Intents > enable **Message Content Intent** > Save > restart gateway (`hermes gateway restart`). |
-| Discord bot ignores specific user | Requesting Discord User ID is missing from `HERMES_ALLOWED_USERS`. | Add your numerical Discord User ID to `HERMES_ALLOWED_USERS` in `.env` and restart gateway. |
+| Discord bot is online but never replies | **Message Content Intent** is disabled in Discord Developer Portal or missing `DISCORD_ALLOWED_USERS`. | Go to Discord Developer Portal > Bot > enable **Message Content Intent**. Ensure your Discord User ID is set in `DISCORD_ALLOWED_USERS` in `.env` (or set `DISCORD_ALLOW_ALL_USERS=true` / `DISCORD_ALLOWED_USERS=true` for debugging). |
+| Discord bot ignores specific user | Requesting Discord User ID is missing from `DISCORD_ALLOWED_USERS`. | Add your numerical Discord User ID to `DISCORD_ALLOWED_USERS` in `.env` (or set `DISCORD_ALLOW_ALL_USERS=true` / `DISCORD_ALLOWED_USERS=true` for debugging) and restart gateway. |
 | "Disallowed Intents" error on gateway startup | Privileged intents not enabled in Developer Portal. | Enable Presence, Server Members, and Message Content intents in Discord Developer Portal. |
 | `git push` prompts for username/password | Git credential helper not configured on host environment. | Run `sudo apt install gh -y`, `echo "$GITHUB_TOKEN" | gh auth login --hostname github.com --git-protocol https --with-token`, and `gh auth setup-git`. |
 | Hermes asks to approve commands repeatedly | Expected behavior under `smart` / `manual` guardrail safety modes. | Approve prompts with `once`/`session`/`always`, or type `/yolo` in chat to temporarily bypass approvals. |
-| `hermes model add` fails with invalid endpoint | Base URL syntax error or missing API path (`/api`). | Ensure Ollama Cloud URL is `https://ollama.com/api` and local Ollama is `http://localhost:11434`. |
+| `hermes model add` fails with invalid endpoint | Base URL syntax error or missing API path (`/v1`). | Ensure Ollama Cloud URL is `https://ollama.com/v1` and local Ollama is `http://localhost:11434`. |
 | `.env` variables fail to load or throw syntax error | Syntax error in configuration file (unquoted spaces or missing `=` sign). | Inspect `.env` file for typos. Ensure values with special characters are wrapped in double quotes `"..."`. |
 | Gateway daemon fails to launch on system boot | Systemd service file path incorrect or missing environment variable file. | Check service logs using `journalctl -u hermes-gateway -e` or inspect `tail -f ~/.hermes/logs/gateway.log`. |
 | Local scratch directories accumulating disk space | Post-execution scratch folder cleanup did not trigger after push. | Run `hermes clean` in terminal to prune temporary scratch workspace directories. |

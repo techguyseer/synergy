@@ -123,7 +123,7 @@ When connecting n8n Ollama nodes, Hermes Agent, or HTTP request nodes, use the a
 | **n8n inside Docker to Ollama on Host Machine** | `http://host.docker.internal:11434` | n8n container connects to Ollama running on the host OS. |
 | **n8n and Ollama in same Docker Compose Network** | `http://ollama:11434` | Both n8n and Ollama are containerized services on the same internal Docker network. |
 | **Remote Host / VPS** | `http://<YOUR_SERVER_IP>:11434` | n8n connects to a remote server running Ollama (`OLLAMA_HOST=0.0.0.0`). |
-| **Ollama Cloud Service** | `https://ollama.com` or `https://ollama.com/api` | n8n or agents invoking hosted Ollama Cloud models via API key authentication. |
+| **Ollama Cloud Service** | `https://ollama.com` or `https://ollama.com/v1` | n8n or agents invoking hosted Ollama Cloud models via API key authentication. |
 
 ### Configuring Ollama Credentials in n8n
 
@@ -177,7 +177,7 @@ export OLLAMA_API_KEY="your_secret_api_key_here"
 
 In HTTP requests (or n8n custom HTTP nodes):
 ```bash
-curl https://ollama.com/api/chat \
+curl https://ollama.com/v1/chat \
   -H "Authorization: Bearer $OLLAMA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{

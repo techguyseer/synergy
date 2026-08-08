@@ -1,6 +1,12 @@
 # Google Account & Cloud Console OAuth Setup Guide
 
+> **Setup Navigation**: [Step 1: AI Provider Setup](ollama.md) | **Step 2: Google Account & Cloud Credentials** | [Step 3: Discord Dual-Bot Setup](discord.md)
+
 This guide details how to configure a Google Cloud Console project for the **Synergy Marketing Ecosystem**, enabling required APIs for **Gmail**, **Google Drive**, and **Google Docs**, and creating **OAuth 2.0 Credentials (Client ID & Client Secret)** for integration into **n8n** nodes.
+
+> 💡 **Non-Technical Note:**  
+
+> **What is OAuth 2.0?** Think of OAuth 2.0 like showing a digital passport or temporary badge when entering a secure building. Instead of giving n8n your personal Google password, OAuth grants n8n a secure token to create Google Docs or send emails on your behalf safely. Need more definitions? See **[Synergy Glossary](glossary.md)**.
 
 ---
 
@@ -22,6 +28,7 @@ n8n Google nodes (Gmail, Google Drive, Google Docs) use OAuth 2.0 authentication
 ---
 
 ## Step 1: Create a Google Cloud Project
+
 
 1. Open the [Google Cloud Console](https://console.cloud.google.com/).
 2. Log in with the Google Account that holds or will access the targeted Mail, Drive, and Docs resources.

@@ -72,7 +72,19 @@ For production-grade availability and higher rate limits, you can add credits to
 
 OpenRouter includes native features for dynamic model selection, fallback chains, and automatic performance routing.
 
-### 1. OpenRouter Auto-Routing (`openrouter/auto`)
+### 1. General Free Version (`openrouter/free`)
+When using `openrouter/free` as your model string, OpenRouter automatically routes requests across available free-tier models without incurring charges or requiring paid credits.
+
+```json
+{
+  "model": "openrouter/free",
+  "messages": [
+    { "role": "user", "content": "Generate a website specification..." }
+  ]
+}
+```
+
+### 2. OpenRouter Auto-Routing (`openrouter/auto`)
 When using `openrouter/auto` as your model string, OpenRouter evaluates incoming prompts and automatically routes requests to the optimal available model based on prompt length, model availability, latency, and cost efficiency.
 
 ```json
@@ -120,8 +132,8 @@ OpenRouter automatically attempts the models in order server-side before returni
 2. Go to **Settings > On Error** and select **`Continue (using error output)`**.
 3. Connect the secondary red error output to a fallback LLM node (e.g., local Ollama node or secondary OpenRouter model).
 
-#### Method C: Auto-Routing (`openrouter/auto`)
-Set the **Model** field in n8n to `openrouter/auto`. OpenRouter handles provider selection and automatic failover dynamically.
+#### Method C: Auto-Routing (`openrouter/free` & `openrouter/auto`)
+Set the **Model** field in n8n to `openrouter/free` for general free-tier model routing, or `openrouter/auto` for performance auto-routing. OpenRouter handles provider selection and automatic failover dynamically.
 
 ### 2. n8n OpenAI Credentials Setup
 OpenRouter provides an OpenAI-compatible Base URL (`https://openrouter.ai/api/v1`).

@@ -1,6 +1,12 @@
 # Discord Developer & Dual-Bot Integration Guide
 
+> **Setup Navigation**: [Step 2: Google Credentials](google-account.md) | **Step 3: Discord Developer & Dual-Bot Setup** | [Step 4: GitHub & GitHub Pages Setup](github.md)
+
 This document outlines the step-by-step process for creating **two separate Discord Developer Applications and Bots** for the **Synergy Marketing Ecosystem** — one named **`n8n-bot`** for n8n Workflows and one named **`hermes-bot`** for Hermes Agent.
+
+> 💡 **Non-Technical Note:**  
+
+> **What are Bot Tokens & Intents?** A **Bot Token** is like a secret login key for your bot assistant. **Privileged Gateway Intents** (Message Content Intent) are master switches that grant the bot permission to read incoming channel text so it can respond to prompts. Need more definitions? See **[Synergy Glossary](glossary.md)**.
 
 ---
 
@@ -23,6 +29,7 @@ To maintain security, clear event boundaries, and isolated token management, thi
 2. **`hermes-bot`**: Dedicated to interactive AI chat, prompt execution, direct message sessions, and command routing.
 
 ---
+
 
 ## Step 1: Create Discord Developer Applications
 
@@ -112,17 +119,21 @@ Generate separate invite links for each bot via **OAuth2 > URL Generator**.
 
 For the laboratory workflows (Development Agent and Analytics Agent), you must copy your Discord User ID and target Channel ID.
 
-### 1. Obtain Your Discord User ID (For Hermes Authorization)
+### 1. Obtain Your Discord User ID (For `DISCORD_ALLOWED_USERS`)
 1. Open Discord, go to **User Settings (gear icon) > Advanced**.
 2. Toggle **Developer Mode** to **ON**.
 3. Right-click your profile avatar/name in Discord and click **Copy User ID**.
-4. Save this numerical ID (e.g., `123456789012345678`) for Hermes configuration.
+4. Save this numerical ID (e.g., `123456789012345678`) to populate `DISCORD_ALLOWED_USERS` (or `HERMES_ALLOWED_USERS`).
 
-### 2. Obtain Your Target Channel ID & Guild ID
+### 2. Obtain Your Target Channel ID & Guild ID (For `DISCORD_ALLOWED_CHANNELS` & n8n)
 1. In your Discord server, right-click the text channel designated for agent communications (e.g., `#agent-lab`).
-2. Click **Copy Channel ID** and save the ID.
+2. Click **Copy Channel ID** and save the ID (e.g., `112233445566778899`) to populate `DISCORD_ALLOWED_CHANNELS`.
 3. Right-click your Server icon in the server list and click **Copy Server ID** (Guild ID).
 4. In n8n, update the `Send a message to Hermes` node in the Development Agent and Analytics Agent workflows with your Server ID and Channel ID.
+
+> 💡 **Fail-Closed Security Model & Debugging Override Notice:**
+> `DISCORD_ALLOWED_USERS` is a **required configuration field** due to Hermes Agent's fail-closed security model. If omitted, the bot ignores all incoming messages.
+> For **debugging or initial testing**, set **`DISCORD_ALLOWED_USERS=true`** or **`DISCORD_ALLOW_ALL_USERS=true`** so Hermes Agent responds to any Discord user without filtering.
 
 ---
 
@@ -139,9 +150,10 @@ For the laboratory workflows (Development Agent and Analytics Agent), you must c
    hermes gateway setup
    ```
 2. Select **Discord** as the gateway platform.
-3. Input the `HERMES_BOT_TOKEN`.
-4. Input your **Discord User ID**.
-5. Start the gateway service:
+3. Input the `DISCORD_BOT_TOKEN`.
+4. Set **Allowed Users** (`DISCORD_ALLOWED_USERS`): Enter numerical User IDs *(or enter `true` / set `DISCORD_ALLOW_ALL_USERS=true` for debugging)*.
+5. Set **Allowed Channels** (`DISCORD_ALLOWED_CHANNELS`): Enter numerical Channel IDs *(or leave blank for all channels)*.
+6. Start the gateway service:
    ```bash
    hermes gateway start
    ```
